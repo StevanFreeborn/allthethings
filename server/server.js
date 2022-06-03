@@ -1,11 +1,11 @@
-require('dotenv').config({path: './config.env'});
+require('dotenv').config({path: './config/config.env'});
 
-import express from 'express';
+const express = require('express');
 
 const app = express();
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const port = process.env.PORT || 5000;
 
