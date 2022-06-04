@@ -1,6 +1,6 @@
 import React from 'react';
-import Route from 'react-router-dom';
-import Routes from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 
 import NavBar from './components/navbar';
 import AddTask from './components/addTask';

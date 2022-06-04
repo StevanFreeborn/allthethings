@@ -1,5 +1,5 @@
-import List from '../models/list';
-import Task from '../models/task';
+const List = require('../models/list');
+const Task = require('../models/task');
 
 module.exports = (app) => {
 

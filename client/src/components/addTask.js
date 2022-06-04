@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
-export default AddTask = () => {
+export default function AddTask() {
 
     const [form, setForm] = useState({
         name: "",
@@ -30,7 +30,7 @@ export default AddTask = () => {
 
         const newTaskJson = JSON.stringify(newTask);
 
-        await fetch('/tasks/add', {
+        await fetch('http://localhost:3000/tasks/add', {
 
             method: 'POST',
             headers: {
@@ -88,7 +88,7 @@ export default AddTask = () => {
                         className='form-control'
                         id='dueDate'
                         value={form.dueDate}
-                        onChange={(e) => updateForm({ name: e.target.value })}
+                        onChange={(e) => updateForm({ dueDate: e.target.value })}
                     />
                 </div>
 
