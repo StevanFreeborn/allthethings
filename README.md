@@ -1,3 +1,3 @@
 # All The Things
 
-A MERN stack task app.
+A to-do app built using the MERN stack.
