@@ -6,22 +6,6 @@ import { useNavigate } from 'react-router';
 
 export default function UpdateTask() {
 
-    const getDateLocal = (dateString) => {
-
-        const date = new Date(dateString);
-
-        const ten = (i) => {
-            return (i < 10 ? '0' : '') + i;
-        }
-
-        const YYYY = date.getFullYear();
-        const MM = ten(date.getMonth() + 1);
-        const DD = ten(date.getDate());
-
-        return `${YYYY}-${MM}-${DD}`
-
-    }
-
     const [form, setForm] = useState({
 
         name: '',
@@ -50,11 +34,13 @@ export default function UpdateTask() {
 
             if (!task) {
                 window.alert(`Task with id ${id} not found`);
-                navigate('/');
+                navigate('/tasks');
                 return;
             }
 
-            task.dueDate = getDateLocal(task.dueDate);
+            console.log(task.dueDate);
+
+            task.dueDate = task.dueDate.split('T')[0];
 
             setForm(task);
 
@@ -78,6 +64,8 @@ export default function UpdateTask() {
 
         e.preventDefault();
 
+        console.log(form.dueDate);
+
         const updatedTask = {
             name: form.name,
             description: form.description,
@@ -85,7 +73,7 @@ export default function UpdateTask() {
         }
 
         const updatedTaskJson = JSON.stringify(updatedTask);
-
+        console.log(updatedTaskJson);
         await fetch(`http://localhost:3000/tasks/update/${params.id}`, {
 
             method: 'POST',
@@ -96,66 +84,82 @@ export default function UpdateTask() {
 
         });
 
-        navigate('/');
+        navigate('/tasks');
 
     }
 
     return (
 
-        <div className='m-5'>
+        <div className='container-sm'>
 
-            <h3>
-                Update Task
-            </h3>
+            <div className='row'>
 
-            <form
-                onSubmit={onSubmit}
-            >
+                <div className='col-12'>
 
-                <div className='form-group my-2'>
-                    <label htmlFor='name'>Name</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        id='name'
-                        value={form.name}
-                        onChange={(e) => updateForm({ name: e.target.value })}
-                        required
-                    />
+                    <h3>
+                        Update Task
+                    </h3>
+
                 </div>
 
-                <div className='form-group my-2'>
-                    <label htmlFor='description'>Description</label>
-                    <textarea
-                        className='form-control'
-                        id='description'
-                        value={form.description}
-                        onChange={(e) => updateForm({ description: e.target.value })}
-                        required
-                    />
+            </div>
+
+            <div className='row'>
+
+                <div className='col-12'>
+
+                    <form
+                        onSubmit={onSubmit}
+                    >
+
+                        <div className='form-group my-2'>
+                            <label htmlFor='name'>Name</label>
+                            <input
+                                type='text'
+                                className='form-control'
+                                id='name'
+                                value={form.name}
+                                onChange={(e) => updateForm({ name: e.target.value })}
+                                required
+                            />
+                        </div>
+
+                        <div className='form-group my-2'>
+                            <label htmlFor='description'>Description</label>
+                            <textarea
+                                className='form-control'
+                                id='description'
+                                value={form.description}
+                                onChange={(e) => updateForm({ description: e.target.value })}
+                                required
+                            />
+                        </div>
+
+                        <div className='form-group my-2'>
+                            <label htmlFor='dueDate'>Due Date</label>
+                            <input
+                                type='date'
+                                className='form-control'
+                                id='dueDate'
+                                value={form.dueDate}
+                                onChange={(e) => updateForm({ dueDate: e.target.value })}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group my-4">
+                            <input
+                                type="submit"
+                                value="Save"
+                                className="btn btn-outline-success"
+                            />
+                        </div>
+
+                    </form>
+
                 </div>
 
-                <div className='form-group my-2'>
-                    <label htmlFor='dueDate'>Due Date</label>
-                    <input
-                        type='date'
-                        className='form-control'
-                        id='dueDate'
-                        value={form.dueDate}
-                        onChange={(e) => updateForm({ dueDate: e.target.value })}
-                        required
-                    />
-                </div>
-
-                <div className="form-group my-2">
-                    <input
-                        type="submit"
-                        value="Save"
-                        className="btn btn-outline-success"
-                    />
-                </div>
-
-            </form>
+            </div>
 
         </div>
 

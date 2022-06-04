@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import { NavLink } from 'react-router-dom';
 
 export default function NavBar() {
@@ -7,19 +6,23 @@ export default function NavBar() {
     return (
 
         <div>
-            <nav className='navbar navbar-dark bg-dark'>
+            <nav className='navbar navbar-dark bg-dark mb-5'>
 
-                <NavLink className='navbar-brand' to='/'>
+                <NavLink className='navbar-brand mx-5' to='/'>
                     All The Things
                 </NavLink>
 
-                <NavLink className='nav-link' to='/'>
-                    Tasks
-                </NavLink>
+                <div className='nav mx-5'>
 
-                <NavLink className='nav-link' to='/tasks/add'>
-                    Add Task
-                </NavLink>
+                    <NavLink className='nav-link link-light' to='/tasks'>
+                        Tasks
+                    </NavLink>
+
+                    <NavLink className='nav-link link-light' to='/lists'>
+                        Lists
+                    </NavLink>
+
+                </div>
 
             </nav>
         </div>

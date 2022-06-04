@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 
 const TaskRow = (props) => {
 
-    const dueDate = new Date(props.task.dueDate).toLocaleDateString();
+    let dueDate = props.task.dueDate.split('T')[0];
+    dueDate = dueDate.split('-');
+    dueDate = `${dueDate[1]}/${dueDate[2]}/${dueDate[0]}`
 
     return (
 
@@ -16,15 +18,16 @@ const TaskRow = (props) => {
             <td>
 
                 <div className='d-grid d-md-flex justify-content-md-center'>
+                    
                     <Link
-                        className='btn btn-outline-success btn-block m-1'
+                        className='btn btn-outline-success m-1'
                         to={`/tasks/update/${props.task._id}`}
                     >
                         Update
                     </Link>
 
                     <button
-                        className='btn btn-outline-danger btn-block m-1'
+                        className='btn btn-outline-danger m-1'
                         onClick={() => props.deleteTask(props.task._id)}
                     >
                         Delete
@@ -99,25 +102,56 @@ export default function TaskList() {
 
     return (
 
-        <div>
+        <div className='container-sm'>
 
-            <h3>Tasks</h3>
+            <div className='row'>
 
-            <table className='table table-striped'>
+                <div className='col-10'>
 
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Due Date</th>
-                    </tr>
-                </thead>
+                    <h3>Tasks</h3>
 
-                <tbody>
-                    {taskList()}
-                </tbody>
-                
-            </table>
+                </div>
+
+                <div className='col-2'>
+
+                    <div className='d-grid d-md-flex justify-content-md-center'>
+
+                        <Link
+                            className='btn btn-outline-success col-12'
+                            to={`/tasks/add`}
+                        >
+                            Add
+                        </Link>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div className='row'>
+
+                <div className='col-12'>
+
+                    <table className='table table-striped'>
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {taskList()}
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
 
         </div>
 
