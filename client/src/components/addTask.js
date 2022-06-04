@@ -68,6 +68,7 @@ export default function AddTask() {
                         id='name'
                         value={form.name}
                         onChange={(e) => updateForm({ name: e.target.value })}
+                        required
                     />
                 </div>
 
@@ -78,6 +79,7 @@ export default function AddTask() {
                         id='description'
                         value={form.description}
                         onChange={(e) => updateForm({ description: e.target.value })}
+                        required
                     />
                 </div>
 
@@ -89,14 +91,15 @@ export default function AddTask() {
                         id='dueDate'
                         value={form.dueDate}
                         onChange={(e) => updateForm({ dueDate: e.target.value })}
+                        required
                     />
                 </div>
 
                 <div className="form-group">
                     <input
                         type="submit"
-                        value="add task"
-                        className="btn btn-primary"
+                        value="Save"
+                        className="btn btn-outline-success"
                     />
                 </div>
 

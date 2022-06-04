@@ -102,13 +102,17 @@ export default function UpdateTask() {
 
     return (
 
-        <div>
+        <div className='m-5'>
 
-            <h3>Update Task</h3>
+            <h3>
+                Update Task
+            </h3>
 
-            <form onSubmit={onSubmit}>
+            <form
+                onSubmit={onSubmit}
+            >
 
-                <div className='form-group'>
+                <div className='form-group my-2'>
                     <label htmlFor='name'>Name</label>
                     <input
                         type='text'
@@ -116,20 +120,22 @@ export default function UpdateTask() {
                         id='name'
                         value={form.name}
                         onChange={(e) => updateForm({ name: e.target.value })}
+                        required
                     />
                 </div>
 
-                <div className='form-group'>
+                <div className='form-group my-2'>
                     <label htmlFor='description'>Description</label>
                     <textarea
                         className='form-control'
                         id='description'
                         value={form.description}
                         onChange={(e) => updateForm({ description: e.target.value })}
+                        required
                     />
                 </div>
 
-                <div className='form-group'>
+                <div className='form-group my-2'>
                     <label htmlFor='dueDate'>Due Date</label>
                     <input
                         type='date'
@@ -137,14 +143,15 @@ export default function UpdateTask() {
                         id='dueDate'
                         value={form.dueDate}
                         onChange={(e) => updateForm({ dueDate: e.target.value })}
+                        required
                     />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group my-2">
                     <input
                         type="submit"
-                        value="add task"
-                        className="btn btn-primary"
+                        value="Save"
+                        className="btn btn-outline-success"
                     />
                 </div>
 

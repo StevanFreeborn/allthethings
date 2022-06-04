@@ -3,24 +3,35 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Task = (props) => {
+const TaskRow = (props) => {
 
     const dueDate = new Date(props.task.dueDate).toLocaleDateString();
 
     return (
 
-        <tr>
+        <tr className='align-middle'>
             <td>{props.task.name}</td>
             <td>{props.task.description}</td>
             <td>{dueDate}</td>
             <td>
-                <Link className='btn btn-link' to={`/tasks/update/${props.task._id}`}>Update</Link>
-                <button
-                    className='btn btn-link'
-                    onClick={() => props.deleteTask(props.task._id) }
-                >
-                    Delete
-                </button>
+
+                <div className='d-grid d-md-flex justify-content-md-center'>
+                    <Link
+                        className='btn btn-outline-success btn-block m-1'
+                        to={`/tasks/update/${props.task._id}`}
+                    >
+                        Update
+                    </Link>
+
+                    <button
+                        className='btn btn-outline-danger btn-block m-1'
+                        onClick={() => props.deleteTask(props.task._id)}
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
             </td>
         </tr>
     
@@ -74,7 +85,7 @@ export default function TaskList() {
 
             return (
 
-                <Task
+                <TaskRow
                     task={task}
                     deleteTask={ () => deleteTask(task._id) }
                     key={task._id}
@@ -90,7 +101,7 @@ export default function TaskList() {
 
         <div>
 
-            <h3>Task List</h3>
+            <h3>Tasks</h3>
 
             <table className='table table-striped'>
 
