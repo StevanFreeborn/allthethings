@@ -4,6 +4,8 @@ import { Routes } from 'react-router-dom';
 
 import NavBar from './components/navbar';
 import AddTask from './components/addTask';
+import UpdateTask from './components/updateTask';
+import TaskList from './components/taskList';
 
 const App = () => {
 
@@ -13,7 +15,9 @@ const App = () => {
 
       <NavBar />
       <Routes>
-        <Route path='/tasks/add' element={<AddTask/>}/>
+        <Route exact path='/' element={ <TaskList/> }/>
+        <Route path='/tasks/add' element={ <AddTask/> }/>
+        <Route path='/tasks/update/:id' element={ <UpdateTask/> }/>
       </Routes>
 
     </div>

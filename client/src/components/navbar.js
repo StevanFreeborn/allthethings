@@ -9,7 +9,13 @@ export default function NavBar() {
         <div>
             <nav className='navbar navbar-expand-lg navbar-light bg-light'>
 
-                <NavLink className='navbar-brand' to='/'>Home</NavLink>
+                <NavLink className='navbar-brand' to='/'>
+                    All The Things
+                </NavLink>
+
+                <NavLink className='nav-link' to='/'>
+                    Tasks
+                </NavLink>
 
                 <NavLink className='nav-link' to='/tasks/add'>
                     Add Task
