@@ -30,8 +30,6 @@ export default function AddTask() {
 
         const newTaskJson = JSON.stringify(newTask);
 
-        console.log(newTaskJson);
-
         await fetch('/tasks/add', {
 
             method: 'POST',
@@ -123,9 +121,6 @@ export default function AddTask() {
                 </div>
 
             </div>
-
-
-
 
         </div>
 
