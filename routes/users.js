@@ -48,16 +48,22 @@ module.exports = (app) => {
         const username = req.body.username;
         const password = req.body.password;
 
+        // check if user with entered username exists
         const user = await User.findOne({ username: username }).exec().catch(err => console.log(err));
 
+        // if user with entered username does not exist return error.
         if (!user) return res.status(400).json({ error: 'Invalid username or password' });
 
+        // get users hashed password
         const userPassword = user.password;
 
-        const correctPassword = await bcrypt.compare(password, userPassword).catch(err => console.log(err));
+        // check if entered password matches users stored password
+        const isCorrectPassword = await bcrypt.compare(password, userPassword).catch(err => console.log(err));
 
-        if (!correctPassword) return res.status(400).json({ error: 'Invalid username or password' });
+        // if password is inccorect return error
+        if (!isCorrectPassword) return res.status(400).json({ error: 'Invalid username or password' });
 
+        // build user response object using users stored values
         const resBody = {
             id: user.id,
             username: user.username,
@@ -67,14 +73,18 @@ module.exports = (app) => {
             password: user.password
         }
 
+        // set JWT token to expire in 86400 seconds or 1 day
         const jwtTokenOptions = { expiresIn: 86400 };
 
+        // build jwtToken
         let jwtToken = `Bearer ${jwt.sign(resBody, process.env.JWT_SECRET, jwtTokenOptions)}`;  
 
+        // return jwtToken
         return res.status(200).json({ token: jwtToken });
 
     });
 
+    // temp route for testing verifyJWT middleware works correctly
     app.get('/users/getUsername', verifyJWT, (req, res) => {
 
         return res.status(200).json({ isLoggedIn: true, username: req.user.username });
