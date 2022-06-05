@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const tasksRoutes = require('./routes/tasks');
+const path = require('path');
 
 const port = process.env.PORT || 5000;
 
@@ -19,6 +20,14 @@ const logger = morgan('dev');
 app.use(logger);
 
 tasksRoutes(app);
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+app.get('*', (req, res) => {
+
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+
+});
 
 app.listen(port, () => {
 

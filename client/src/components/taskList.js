@@ -51,7 +51,7 @@ export default function TaskList() {
 
         const getTasks = async () => {
 
-            const res = await fetch(`http://localhost:3000/tasks`)
+            const res = await fetch(`/tasks`)
 
             if (!res.ok) {
                 const message = `An error occured: ${res.statusText}`;
@@ -70,7 +70,7 @@ export default function TaskList() {
 
     const deleteTask = async (id) => {
 
-        await fetch(`http://localhost:3000/tasks/delete/${id}`, {
+        await fetch(`/tasks/delete/${id}`, {
 
             method: 'DELETE'
 

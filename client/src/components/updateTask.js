@@ -22,7 +22,7 @@ export default function UpdateTask() {
         const fetchData = async () =>  {
 
             const id = params.id;
-            const res = await fetch(`http://localhost:3000/tasks/${id}`);
+            const res = await fetch(`/tasks/${id}`);
 
             if (!res.ok) {
                 const message = `An error has occurred: ${res.statusText}`;
@@ -74,7 +74,7 @@ export default function UpdateTask() {
 
         const updatedTaskJson = JSON.stringify(updatedTask);
         console.log(updatedTaskJson);
-        await fetch(`http://localhost:3000/tasks/update/${params.id}`, {
+        await fetch(`/tasks/update/${params.id}`, {
 
             method: 'POST',
             body: updatedTaskJson,

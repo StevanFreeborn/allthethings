@@ -32,7 +32,7 @@ export default function AddTask() {
 
         console.log(newTaskJson);
 
-        await fetch('http://localhost:3000/tasks/add', {
+        await fetch('/tasks/add', {
 
             method: 'POST',
             headers: {
