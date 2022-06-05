@@ -7,6 +7,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const usersRoutes = require('./routes/users');
 const tasksRoutes = require('./routes/tasks');
 const path = require('path');
 
@@ -19,6 +20,7 @@ const logger = morgan('dev');
 
 app.use(logger);
 
+usersRoutes(app);
 tasksRoutes(app);
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));

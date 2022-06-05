@@ -7,8 +7,8 @@ const listSchemaOptions = {
 const ListSchema = mongoose.Schema({
 
     userId: { type: String },
-    name: {type: String, required: true, trim: true},
-    description: {type: String, required: true, trim: true},
+    name: { type: String, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
 
 }, listSchemaOptions);
 

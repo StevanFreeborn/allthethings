@@ -8,8 +8,8 @@ const TaskSchema = mongoose.Schema({
 
     userId: { type: String },
     listId: { type: String },
-    name: {type: String, required: true, trim: true},
-    description: {type: String, required: true, trim: true},
+    name: { type: String, required: true, trim: true },
+    description: { type: String, required: true, trim: true },
     dueDate: { type: Date, required: true, trim: true }
 
 }, taskSchemaOptions);
