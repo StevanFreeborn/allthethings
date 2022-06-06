@@ -1,6 +1,7 @@
 const TaskController = require('../controllers/tasks');
-const verifyJWT = require('../middleware/authorize');
 const taskController = new TaskController();
+
+const verifyJWT = require('../middleware/authorize');
 
 module.exports = (app) => {
 
@@ -10,13 +11,13 @@ module.exports = (app) => {
     // get a task by id.
     app.get('/tasks/:id', verifyJWT, taskController.getTaskById);
 
-    // add a task record
+    // add a task
     app.post('/tasks/add', verifyJWT, taskController.addTask);
 
     // update a task by id
     app.post('/tasks/update/:id', verifyJWT, taskController.updateTaskById);
 
-    // delete task by id
+    // delete a task by id
     app.delete('/tasks/delete/:id', verifyJWT, taskController.deleteTaskById);
 
 }

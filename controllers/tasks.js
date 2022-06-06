@@ -53,7 +53,7 @@ class TasksController {
     
         const updateOptions = {new: true};
     
-        const updatedTask = await Task.findByIdAndUpdate(taskId, updates, updateOptions).catch(err => console.log(err));
+        const updatedTask = await Task.findByIdAndUpdate(taskId, updates, updateOptions).exec().catch(err => console.log(err));
     
         return res.status(200).json(updatedTask);
     
