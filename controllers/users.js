@@ -94,8 +94,6 @@ class UserController {
             cookieOptions.secure = true;
         }
 
-        console.log(cookieOptions);
-
         // set cookie
         res.cookie('jwt', jwtToken, cookieOptions);
 
