@@ -6,7 +6,7 @@ const verifyJWT = (req, res, next) => {
     const token = req.cookies.jwt;
 
     // if no token return error
-    if (!token) return res.status(403).json({ error: 'Authorized request', isLoggedIn: false });
+    if (!token) return res.status(403).json({ error: 'Unauthorized request', isLoggedIn: false });
 
     // verify token using verify() method from jsonwebtoken
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

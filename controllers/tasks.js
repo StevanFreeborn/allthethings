@@ -22,6 +22,8 @@ class TasksController {
 
     addTask = async (req, res) => {
 
+        console.log(req.user);
+
         const newTask = new Task({
     
             name: req.body.name,

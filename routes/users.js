@@ -10,13 +10,13 @@ module.exports = (app) => {
     // register new user
     app.post('/users/register', userController.register);
 
+    // login user
     app.post('/users/login', userController.login);
 
-    // temp route for testing verifyJWT middleware works correctly
-    app.get('/users/getUsername', verifyJWT, (req, res) => {
+    // logout user
+    app.post('/users/logout', verifyJWT, userController.logout);    
 
-        return res.status(200).json({ isLoggedIn: true, username: req.user.username });
-
-    });
+    // check if user has logged in
+    app.get('/users/auth', verifyJWT, userController.checkAuthStatus);
 
 }

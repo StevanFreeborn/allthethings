@@ -43,7 +43,7 @@ const TaskRow = (props) => {
 }
 
 
-export default function TaskList() {
+export default function TaskList({isLoggedIn}) {
 
     const [tasks, setTasks] = useState([]);
 

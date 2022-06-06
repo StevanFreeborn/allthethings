@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { restart } = require('nodemon');
 
 class UserController {
 
@@ -28,7 +29,7 @@ class UserController {
             username: username,
             firstName: firstName,
             lastName: lastName,
-            email: lastName,
+            email: email,
             password: password
 
         });
@@ -100,6 +101,20 @@ class UserController {
         // return jwtToken
         return res.status(200).json({ message: 'Login successful' });
 
+    }
+
+    logout = (req, res) => {
+
+        res.cookie('jwt', '');
+
+        return res.status(200).json({ message: 'Logout successful'});
+
+    }
+
+    checkAuthStatus = (req, res) => {
+        
+        return res.status(200).json({ isLoggedIn: true });
+        
     }
 
 }

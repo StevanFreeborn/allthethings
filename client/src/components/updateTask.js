@@ -73,7 +73,7 @@ export default function UpdateTask() {
         }
 
         const updatedTaskJson = JSON.stringify(updatedTask);
-        console.log(updatedTaskJson);
+        
         await fetch(`/tasks/update/${params.id}`, {
 
             method: 'POST',
