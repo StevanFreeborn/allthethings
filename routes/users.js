@@ -70,7 +70,6 @@ module.exports = (app) => {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            password: user.password
         }
 
         // set JWT token to expire in 86400 seconds or 1 day
