@@ -13,9 +13,6 @@ module.exports = (app) => {
     // login user
     app.post('/users/login', userController.login);
 
-    // logout user
-    app.post('/users/logout', verifyJWT, userController.logout);    
-
     // check if user has logged in
     app.get('/users/auth', verifyJWT, userController.checkAuthStatus);
 

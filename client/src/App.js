@@ -22,7 +22,11 @@ const App = () => {
 
     const checkAuth = async () => {
 
-      const res = await fetch(`/users/auth`)
+      const res = await fetch(`/users/auth`, {
+        headers: {
+          'x-access-token': localStorage.getItem('jwtToken')
+        }
+      })
 
       if (!res.ok) {
         return navigate('/users/login');

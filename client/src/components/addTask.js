@@ -34,7 +34,8 @@ export default function AddTask() {
 
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('jwtToken')
             },
             body: newTaskJson
 

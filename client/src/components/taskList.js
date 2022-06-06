@@ -51,7 +51,11 @@ export default function TaskList({isLoggedIn}) {
 
         const getTasks = async () => {
 
-            const res = await fetch(`/tasks`)
+            const res = await fetch(`/tasks`, {
+                headers: {
+                    'x-access-token': localStorage.getItem('jwtToken')
+                }
+            })
 
             if (!res.ok) {
                 const message = `An error occured: ${res.statusText}`;
@@ -72,7 +76,10 @@ export default function TaskList({isLoggedIn}) {
 
         await fetch(`/tasks/delete/${id}`, {
 
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'x-access-token': localStorage.getItem('jwtToken')
+            }
 
         });
 

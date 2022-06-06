@@ -8,8 +8,7 @@ export default function NavBar({isLoggedIn, setIsLoggedIn}) {
 
     const handleLogOut = async () => {
 
-        await fetch('/users/logout', {method: 'POST'})
-        .catch(err => window.alert(err));
+        localStorage.removeItem('jwtToken');
 
         setIsLoggedIn({ isLoggedIn: false });
 

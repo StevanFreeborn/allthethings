@@ -22,7 +22,11 @@ export default function UpdateTask() {
         const fetchData = async () =>  {
 
             const id = params.id;
-            const res = await fetch(`/tasks/${id}`);
+            const res = await fetch(`/tasks/${id}`, {
+                headers: {
+                    'x-access-token': localStorage.getItem('jwtToken')
+                }
+            });
 
             if (!res.ok) {
                 const message = `An error has occurred: ${res.statusText}`;
@@ -37,8 +41,6 @@ export default function UpdateTask() {
                 navigate('/tasks');
                 return;
             }
-
-            console.log(task.dueDate);
 
             task.dueDate = task.dueDate.split('T')[0];
 
@@ -79,7 +81,8 @@ export default function UpdateTask() {
             method: 'POST',
             body: updatedTaskJson,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('jwtToken')
             }
 
         });

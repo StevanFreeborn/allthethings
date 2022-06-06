@@ -44,6 +44,10 @@ export default function Login({setIsLoggedIn}) {
 
         if (!res.ok) return navigate('/users/login');
 
+        const data = await res.json();
+
+        localStorage.setItem('jwtToken', data.token);
+
         setForm({
 
             username: '',

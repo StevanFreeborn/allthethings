@@ -86,28 +86,10 @@ class UserController {
         const jwtTokenOptions = { expiresIn: 86400 };
 
         // build jwtToken
-        let jwtToken = jwt.sign(resBody, process.env.JWT_SECRET, jwtTokenOptions);  
-
-        // provide options for cookie
-        const cookieOptions = {httpOnly: true, maxAge: 86400 };
-        
-        if (process.env.NODE_ENV == 'production') {
-            cookieOptions.secure = true;
-        }
-
-        // set cookie
-        res.cookie('jwt', jwtToken, cookieOptions);
+        let jwtToken = `Bearer ${jwt.sign(resBody, process.env.JWT_SECRET, jwtTokenOptions)}`;  
 
         // return jwtToken
-        return res.status(200).json({ message: 'Login successful' });
-
-    }
-
-    logout = (req, res) => {
-
-        res.cookie('jwt', '');
-
-        return res.status(200).json({ message: 'Logout successful'});
+        return res.status(200).json({ message: 'Login successful', token: jwtToken });
 
     }
 

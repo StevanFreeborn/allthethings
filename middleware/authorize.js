@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const verifyJWT = (req, res, next) => {
 
     // get token from request header
-    const token = req.cookies.jwt;
+    const token = req.headers['x-access-token']?.split(' ')[1];
 
     // if no token return error
     if (!token) return res.status(403).json({ error: 'Unauthorized request', isLoggedIn: false });
