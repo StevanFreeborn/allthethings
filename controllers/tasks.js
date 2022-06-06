@@ -4,7 +4,9 @@ class TasksController {
 
     getAllTasks = async (req, res) => {
 
-        const tasks = await Task.find({}).exec().catch(err => console.log(err));
+        const userId = req.user.id;
+
+        const tasks = await Task.find({userId: userId}).exec().catch(err => console.log(err));
     
         return res.status(200).json(tasks);
     
@@ -22,8 +24,11 @@ class TasksController {
 
     addTask = async (req, res) => {
 
+        const userId = req.user.id;
+
         const newTask = new Task({
-    
+            
+            userId: userId,
             name: req.body.name,
             description: req.body.description,
             dueDate: req.body.dueDate,
