@@ -1,5 +1,3 @@
-const Task = require('../models/task');
-
 const TaskController = require('../controllers/tasks');
 const taskController = new TaskController();
 
