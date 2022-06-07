@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import UserService from '../services/usersService';
 const userService = new UserService();
 
-export default function Login({setIsLoggedIn}) {
+export default function Login(props) {
 
     const [form, setForm] = useState({
         username: '',
@@ -50,7 +50,7 @@ export default function Login({setIsLoggedIn}) {
 
         });
 
-        setIsLoggedIn({ isLoggedIn: true });
+        props.setIsLoggedIn({ isLoggedIn: true });
 
         return navigate('/tasks');
 

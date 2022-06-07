@@ -62,7 +62,7 @@ class ListsController {
 
         const listId = req.params.id;
 
-        const deletedList = await Task.findByIdAndDelete(listId).exec().catch(err => console.log(err));
+        const deletedList = await List.findByIdAndDelete(listId).exec().catch(err => console.log(err));
 
         return res.status(204).json(deletedList);
 

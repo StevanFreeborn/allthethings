@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const usersRoutes = require('./routes/users');
 const tasksRoutes = require('./routes/tasks');
+const listRoutes = require('./routes/lists');
 const path = require('path');
 
 const port = process.env.PORT || 5000;
@@ -22,6 +23,7 @@ app.use(logger);
 
 usersRoutes(app);
 tasksRoutes(app);
+listRoutes(app);
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 

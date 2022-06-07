@@ -5,7 +5,7 @@ import { CheckSquare } from 'react-bootstrap-icons';
 import UserService from '../services/usersService';
 const userService = new UserService();
 
-export default function NavBar({isLoggedIn, setIsLoggedIn}) {
+export default function NavBar(props) {
 
     const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ export default function NavBar({isLoggedIn, setIsLoggedIn}) {
 
         userService.logout();
 
-        setIsLoggedIn({ isLoggedIn: false });
+        props.setIsLoggedIn({ isLoggedIn: false });
 
         return navigate('/users/login');
 
@@ -34,7 +34,7 @@ export default function NavBar({isLoggedIn, setIsLoggedIn}) {
 
                 <div className='nav mx-2'>
                     
-                    { !isLoggedIn ?
+                    { !props.isLoggedIn ?
                     <>
                     <NavLink className='nav-link link-light' to='/users/login'>
                         Login
@@ -46,7 +46,7 @@ export default function NavBar({isLoggedIn, setIsLoggedIn}) {
                     </>
                     : '' }
                     
-                    { isLoggedIn ?
+                    { props.isLoggedIn ?
                     <>
                     <NavLink className='nav-link link-light' to='/tasks'>
                         Tasks

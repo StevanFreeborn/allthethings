@@ -31,7 +31,7 @@ const TaskRow = (props) => {
 
                     <button
                         className='btn btn-outline-danger m-1'
-                        onClick={() => props.deleteTask(props.task._id)}
+                        onClick={() => props.deleteTask(props.task.id)}
                     >
                         Delete
                     </button>
@@ -46,7 +46,7 @@ const TaskRow = (props) => {
 }
 
 
-export default function TaskList({isLoggedIn}) {
+export default function TaskTable({isLoggedIn}) {
 
     const [tasks, setTasks] = useState([]);
 

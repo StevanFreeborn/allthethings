@@ -1,18 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
-import TaskService from '../services/tasksService';
-const taskService =  new TaskService();
+import ListService from '../services/listsService';
+const listService = new ListService();
 
-export default function AddTask() {
+export default function AddList() {
 
     const [form, setForm] = useState({
 
         name: '',
-        description: '',
-        dueDate: ''
-        
+        description: ''
+
     });
 
     const navigate = useNavigate();
@@ -31,11 +30,11 @@ export default function AddTask() {
 
         e.preventDefault();
 
-        const newTask = { ...form };
+        const newList = { ...form };
 
-        const newTaskJson = JSON.stringify(newTask);
+        const newListJson = JSON.stringify(newList);
 
-        const res = await taskService.addTask(newTaskJson);
+        const res = await listService.addList(newListJson);
 
         if (!res.ok) {
             const message = `An error has occurred: ${res.statusText}`;
@@ -45,12 +44,11 @@ export default function AddTask() {
         setForm({
 
             name: '',
-            position: '',
-            dueDate: ''
+            description: ''
 
-        });
+        })
 
-        navigate('/tasks');
+        navigate('/lists');
 
     }
 
@@ -62,7 +60,7 @@ export default function AddTask() {
 
                 <div className='col-12'>
 
-                    <h3>Add Task</h3>
+                    <h3>Add List</h3>
 
                 </div>
 
@@ -93,18 +91,6 @@ export default function AddTask() {
                                 id='description'
                                 value={form.description}
                                 onChange={(e) => updateForm({ description: e.target.value })}
-                                required
-                            />
-                        </div>
-
-                        <div className='form-group my-2'>
-                            <label htmlFor='dueDate'>Due Date</label>
-                            <input
-                                type='date'
-                                className='form-control'
-                                id='dueDate'
-                                value={form.dueDate}
-                                onChange={(e) => updateForm({ dueDate: e.target.value })}
                                 required
                             />
                         </div>
