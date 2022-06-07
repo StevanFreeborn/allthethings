@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Route, useNavigate } from 'react-router-dom';
-import { Routes } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import NavBar from './components/navbar';
@@ -33,14 +33,20 @@ const App = () => {
       const res = await userService.checkAuth();
 
       if (!res.ok) {
-        return navigate('/users/login');
+        
+        const path = window.location.pathname == '/users/register' ? '/users/register' : '/users/login';
+
+        return navigate(path);
+
       }
 
       const state = await res.json();
 
       setState(state);
 
-      return navigate('/tasks');
+      const path = window.location.pathname == '/' ? '/tasks' : window.location.pathname;
+
+      return navigate(path);
 
     }
 
@@ -48,24 +54,25 @@ const App = () => {
 
 }, [state.isLoggedIn]);
 
+console.log(state);
 
   return (
 
     <div>
 
-      <NavBar isLoggedIn={state.isLoggedIn} setIsLoggedIn={setState}/>
+      <NavBar isLoggedIn={state.isLoggedIn} setIsLoggedIn={setState} />
       <Routes>
-        
-          <Route path='/users/register' element={ <Register/> }/>
-          <Route path='/users/login' element={ <Login setIsLoggedIn={setState}/> }/>
 
-          {state.isLoggedIn && <Route path='/tasks' element={ <TaskTable/> }/> }
-          {state.isLoggedIn && <Route path='/tasks/add' element={ <AddTask/> }/> }
-          {state.isLoggedIn && <Route path='/tasks/update/:id' element={ <UpdateTask/> }/> }
+        { !state.isLoggedIn && <Route path='/users/login' element={ <Login setIsLoggedIn={setState}/> }/> }
+        { !state.isLoggedIn && <Route path='/users/register' element={<Register />} /> }
+      
+        { state.isLoggedIn && <Route path='/tasks' element={<TaskTable />} /> }
+        { state.isLoggedIn && <Route path='/tasks/add' element={<AddTask />} /> }
+        { state.isLoggedIn && <Route path='/tasks/update/:id' element={<UpdateTask />} /> }
 
-          {state.isLoggedIn && <Route path='/lists' element={ <ListTable/> }/> }
-          {state.isLoggedIn && <Route path='/lists/add' element={ <AddList/> }/> }
-  
+        { state.isLoggedIn && <Route path='/lists' element={<ListTable />} /> }
+        { state.isLoggedIn && <Route path='/lists/add' element={<AddList />} /> }
+
       </Routes>
 
     </div>
