@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const TaskService = require('../services/tasksService');
+const taskService = new TaskService();
+
 const TaskRow = (props) => {
 
     let dueDate = props.task.dueDate.split('T')[0];
@@ -49,13 +52,9 @@ export default function TaskList({isLoggedIn}) {
 
     useEffect(() => {
 
-        const getTasks = async () => {
+        const getAllTasks = async () => {
 
-            const res = await fetch(`/tasks`, {
-                headers: {
-                    'x-access-token': localStorage.getItem('jwtToken')
-                }
-            })
+            const res = await taskService.getAllTasks();
 
             if (!res.ok) {
                 const message = `An error occured: ${res.statusText}`;
@@ -68,20 +67,18 @@ export default function TaskList({isLoggedIn}) {
 
         }
 
-        getTasks();
+        getAllTasks();
 
     }, [tasks.length]);
 
     const deleteTask = async (id) => {
 
-        await fetch(`/tasks/delete/${id}`, {
+        const res = await taskService.deleteTaskById(id);
 
-            method: 'DELETE',
-            headers: {
-                'x-access-token': localStorage.getItem('jwtToken')
-            }
-
-        });
+        if (!res.ok) {
+            const message = `An error occured: ${res.statusText}`;
+            return window.alert(message);
+        }
 
         const newTasks = tasks.filter(task => task._id !== id);
 
