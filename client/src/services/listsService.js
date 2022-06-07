@@ -75,4 +75,4 @@ class ListService {
 
 }
 
-module.exports = ListService;
+export default ListService;
