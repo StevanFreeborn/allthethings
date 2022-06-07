@@ -2,13 +2,16 @@ import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { CheckSquare } from 'react-bootstrap-icons';
 
+import UserService from '../services/usersService';
+const userService = new UserService();
+
 export default function NavBar({isLoggedIn, setIsLoggedIn}) {
 
     const navigate = useNavigate();
 
     const handleLogOut = async () => {
 
-        localStorage.removeItem('jwtToken');
+        userService.logout();
 
         setIsLoggedIn({ isLoggedIn: false });
 

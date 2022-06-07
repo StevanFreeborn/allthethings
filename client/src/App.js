@@ -10,6 +10,9 @@ import TaskList from './components/taskList';
 import Register from './components/register';
 import Login from './components/login';
 
+import UserService from './services/usersService';
+const userService = new UserService();
+
 const App = () => {
 
   const navigate = useNavigate();
@@ -22,11 +25,7 @@ const App = () => {
 
     const checkAuth = async () => {
 
-      const res = await fetch(`/users/auth`, {
-        headers: {
-          'x-access-token': localStorage.getItem('jwtToken')
-        }
-      })
+      const res = await userService.checkAuth();
 
       if (!res.ok) {
         return navigate('/users/login');

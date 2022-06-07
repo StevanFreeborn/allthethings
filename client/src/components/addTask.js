@@ -2,6 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import TaskService from '../services/tasksService';
+const taskService =  new TaskService();
+
 export default function AddTask() {
 
     const [form, setForm] = useState({
@@ -30,17 +33,12 @@ export default function AddTask() {
 
         const newTaskJson = JSON.stringify(newTask);
 
-        await fetch('/tasks/add', {
+        const res = await taskService.addTask(newTaskJson);
 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-access-token': localStorage.getItem('jwtToken')
-            },
-            body: newTaskJson
-
-        })
-        .catch(err => window.alert(err));
+        if (!res.ok) {
+            const message = `An error has occurred: ${res.statusText}`;
+            return window.alert(message);
+        }
 
         setForm({
 

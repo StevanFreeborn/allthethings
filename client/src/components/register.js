@@ -2,6 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import UserService from '../services/usersService';
+const userService = new UserService();
+
 export default function Register() {
 
     const [form, setForm] = useState({
@@ -32,16 +35,14 @@ export default function Register() {
 
         const newUserJson = JSON.stringify(newUser);
 
-        await fetch('/users/register', {
+        const res = await userService.register(newUserJson);
 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: newUserJson
+        const data = await res.json();
 
-        })
-        .catch(err => window.alert(err));
+        if (!res.ok) {
+            const message = data.error;
+            return window.alert(message);
+        }
 
         setForm({
 

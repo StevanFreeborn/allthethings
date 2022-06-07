@@ -4,6 +4,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
 
+import TaskService from '../services/tasksService';
+const taskService = new TaskService();
+
 export default function UpdateTask() {
 
     const [form, setForm] = useState({
@@ -19,27 +22,22 @@ export default function UpdateTask() {
 
     useEffect(() => {
 
-        const fetchData = async () =>  {
+        const getTaskById = async () =>  {
 
             const id = params.id;
-            const res = await fetch(`/tasks/${id}`, {
-                headers: {
-                    'x-access-token': localStorage.getItem('jwtToken')
-                }
-            });
+
+            const res = await taskService.getTaskById(id);
 
             if (!res.ok) {
                 const message = `An error has occurred: ${res.statusText}`;
-                window.alert(message);
-                return;
+                return window.alert(message);
             }
 
             const task = await res.json();
 
             if (!task) {
                 window.alert(`Task with id ${id} not found`);
-                navigate('/tasks');
-                return;
+                return navigate('/tasks');
             }
 
             task.dueDate = task.dueDate.split('T')[0];
@@ -48,7 +46,7 @@ export default function UpdateTask() {
 
         }
 
-        fetchData();
+        getTaskById();
 
     }, [params.id, navigate]);
 
@@ -66,8 +64,6 @@ export default function UpdateTask() {
 
         e.preventDefault();
 
-        console.log(form.dueDate);
-
         const updatedTask = {
             name: form.name,
             description: form.description,
@@ -75,17 +71,16 @@ export default function UpdateTask() {
         }
 
         const updatedTaskJson = JSON.stringify(updatedTask);
+
+        const taskId = params.id;
         
-        await fetch(`/tasks/update/${params.id}`, {
+        const res = await taskService.updateTaskById(taskId, updatedTaskJson);
 
-            method: 'POST',
-            body: updatedTaskJson,
-            headers: {
-                'Content-Type': 'application/json',
-                'x-access-token': localStorage.getItem('jwtToken')
-            }
-
-        });
+        if (!res.ok) {
+            const message = `An error has occurred: ${res.statusText}`;
+            window.alert(message);
+            return;
+        }
 
         navigate('/tasks');
 

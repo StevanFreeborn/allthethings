@@ -2,6 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import UserService from '../services/usersService';
+const userService = new UserService();
+
 export default function Login({setIsLoggedIn}) {
 
     const [form, setForm] = useState({
@@ -29,22 +32,14 @@ export default function Login({setIsLoggedIn}) {
 
         const userJson = JSON.stringify(user);
 
-        const res = await fetch('/users/login', {
-
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: userJson
-
-        })
-        .catch(err => window.alert(err));
-
-        console.log(res);
-
-        if (!res.ok) return navigate('/users/login');
+        const res = await userService.login(userJson);
 
         const data = await res.json();
+
+        if (!res.ok) {
+            const message = data.error;
+            return window.alert(message);
+        }
 
         localStorage.setItem('jwtToken', data.token);
 

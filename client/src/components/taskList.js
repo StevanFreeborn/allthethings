@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const TaskService = require('../services/tasksService');
+import TaskService from '../services/tasksService';
 const taskService = new TaskService();
 
 const TaskRow = (props) => {

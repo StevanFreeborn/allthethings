@@ -6,18 +6,18 @@ const verifyJWT = require('../middleware/authorize');
 module.exports = (app) => {
 
     // get a list of all the lists.
-    app.get('/lists', verifyJWT, listController.getAllLists);
+    app.get('/api/lists', verifyJWT, listController.getAllLists);
 
     // get a list by id.
-    app.get('/lists/:id', verifyJWT, listController.getListById);
+    app.get('/api/lists/:id', verifyJWT, listController.getListById);
 
     // add a list
-    app.post('/lists/add', verifyJWT, listController.addList);
+    app.post('/api/lists/add', verifyJWT, listController.addList);
 
     // update a list by id
-    app.post('/lists/update/:id', verifyJWT, listController.updateListById);
+    app.post('/api/lists/update/:id', verifyJWT, listController.updateListById);
 
     // delete a list by id
-    app.delete('/lists/delete/:id', verifyJWT, listController.deleteListById);
+    app.delete('/api/lists/delete/:id', verifyJWT, listController.deleteListById);
 
 }
