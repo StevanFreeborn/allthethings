@@ -27,7 +27,7 @@ export default function CheckAuth(props) {
     
         checkAuth();
     
-    }, []);
+    });
 
     return (
         <></>
