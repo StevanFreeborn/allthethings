@@ -34,36 +34,41 @@ export default function NavBar(props) {
 
                 <div className='nav mx-2'>
                     
-                    { !props.isLoggedIn ?
-                    <>
-                    <NavLink className='nav-link link-light' to='/users/login'>
-                        Login
-                    </NavLink>
+                    { 
+                        !props.isLoggedIn ?
+                        <>
+                            <NavLink className='nav-link link-light' to='/users/login'>
+                                Login
+                            </NavLink>
+                            
+                            <NavLink className='nav-link link-light' to='/users/register'>
+                                Register
+                            </NavLink>
+                        </>
+                        : '' 
+                    }
                     
-                    <NavLink className='nav-link link-light' to='/users/register'>
-                        Register
-                    </NavLink>
-                    </>
-                    : '' }
-                    
-                    { props.isLoggedIn ?
-                    <>
-                    <NavLink className='nav-link link-light' to='/tasks'>
-                        Tasks
-                    </NavLink>
+                    {/* Protected nav links */}
+                    {
+                        props.isLoggedIn && props.isLoggedIn !== 'authenticating' ?
+                        <>
+                        <NavLink className='nav-link link-light' to='/tasks'>
+                            Tasks
+                        </NavLink>
 
-                    <NavLink className='nav-link link-light' to='/lists'>
-                        Lists
-                    </NavLink>
+                        <NavLink className='nav-link link-light' to='/lists'>
+                            Lists
+                        </NavLink>
 
-                    <button 
-                        className='btn btn-link nav-link link-light'
-                        onClick={handleLogOut}
-                    >
-                        Logout
-                    </button>
-                    </>
-                    : '' }
+                        <button 
+                            className='btn btn-link nav-link link-light'
+                            onClick={handleLogOut}
+                        >
+                            Logout
+                        </button>
+                        </>
+                        : '' 
+                    }
 
                 </div>
 

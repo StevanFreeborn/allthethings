@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -14,62 +13,60 @@ import AddList from './components/addList';
 
 import Register from './components/register';
 import Login from './components/login';
-
-import UserService from './services/usersService';
-const userService = new UserService();
+import CheckAuth from './components/checkAuth';
 
 const App = () => {
 
-  const navigate = useNavigate();
-
   const [state, setState] = useState({
-    isLoggedIn: false
+    isLoggedIn: 'authenticating'
   });
-
-  useEffect(() => {
-
-    const checkAuth = async () => {
-
-      const res = await userService.checkAuth();
-
-      if (!res.ok) {
-        
-        const path = window.location.pathname == '/users/register' ? '/users/register' : '/users/login';
-
-        return navigate(path);
-
-      }
-
-      const state = await res.json();
-
-      setState(state);
-
-      const path = window.location.pathname == '/' ? '/tasks' : window.location.pathname;
-
-      return navigate(path);
-
-    }
-
-    checkAuth();
-
-}, [state.isLoggedIn]);
 
   return (
 
     <div>
 
-      <NavBar isLoggedIn={state.isLoggedIn} setIsLoggedIn={setState} />
+      {/* hide navbar until initial auth check is complete*/}
+      {state.isLoggedIn !== 'authenticating' ?
+        <NavBar isLoggedIn={state.isLoggedIn} setIsLoggedIn={setState} />
+        : null
+      }
+
       <Routes>
 
-        { !state.isLoggedIn && <Route path='/users/login' element={ <Login setIsLoggedIn={setState}/> }/> }
-        { !state.isLoggedIn && <Route path='/users/register' element={<Register />} /> }
-      
-        { state.isLoggedIn && <Route path='/tasks' element={<TaskTable />} /> }
-        { state.isLoggedIn && <Route path='/tasks/add' element={<AddTask />} /> }
-        { state.isLoggedIn && <Route path='/tasks/update/:id' element={<UpdateTask />} /> }
+        {/* perform initial auth check in checkAuth component */}
+        {state.isLoggedIn === 'authenticating' ?
+          <Route path='*' element={<CheckAuth setIsLoggedIn={setState} />} />
+          : null
+        }
 
-        { state.isLoggedIn && <Route path='/lists' element={<ListTable />} /> }
-        { state.isLoggedIn && <Route path='/lists/add' element={<AddList />} /> }
+        {/* Unprotected routes */}
+        {
+          (!state.isLoggedIn) ?
+            <>
+              <Route path='/users/login' element={<Login setIsLoggedIn={setState} />} />
+              <Route path='/users/register' element={<Register />} />
+
+              {/* "Default" unprotected route */}
+              <Route path='*' element={<Navigate replace to='/users/login' />} />
+            </>
+            : null
+        }
+
+        {/* Protected routes */}
+        {
+          state.isLoggedIn && state.isLoggedIn !== 'authenticating' ?
+            <>
+              <Route path='/tasks' element={<TaskTable />} />
+              <Route path='/tasks/add' element={<AddTask />} />
+              <Route path='/tasks/update/:id' element={<UpdateTask />} />
+              <Route path='/lists' element={<ListTable />} />
+              <Route path='/lists/add' element={<AddList />} />
+
+              {/* "Default" unprotected route */}
+              <Route path='*' element={<Navigate replace to='/tasks' />} />
+            </>
+            : null
+        }
 
       </Routes>
 
