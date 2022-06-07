@@ -54,8 +54,6 @@ const App = () => {
 
 }, [state.isLoggedIn]);
 
-console.log(state);
-
   return (
 
     <div>
