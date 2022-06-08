@@ -10,6 +10,7 @@ import UpdateTask from './components/updateTask';
 
 import ListTable from './components/listTable';
 import AddList from './components/addList';
+import UpdateList from './components/updateList';
 
 import Register from './components/register';
 import Login from './components/login';
@@ -25,7 +26,7 @@ const App = () => {
 
     <div>
 
-      {/* hide navbar until initial auth check is complete*/}
+      {/* hide navbar until auth check is complete*/}
       {state.isLoggedIn !== 'authenticating' ?
         <NavBar isLoggedIn={state.isLoggedIn} setIsLoggedIn={setState} />
         : null
@@ -61,6 +62,7 @@ const App = () => {
               <Route path='/tasks/update/:id' element={<UpdateTask />} />
               <Route path='/lists' element={<ListTable />} />
               <Route path='/lists/add' element={<AddList />} />
+              <Route path='/lists/update/:id' element={<UpdateList />} />
 
               {/* "Default" unprotected route */}
               <Route path='*' element={<Navigate replace to='/tasks' />} />

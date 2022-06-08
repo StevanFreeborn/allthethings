@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "dev": "start nodemon server.js && cd client && start npm run dev",
+    "dev": "start nodemon --ignore client/ server.js && cd client && start npm run dev",
     "client": "cd client && npm run dev",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
