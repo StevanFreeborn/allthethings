@@ -6,19 +6,39 @@ class TasksController {
 
         const userId = req.user.id;
 
-        const tasks = await Task.find({userId: userId}).exec().catch(err => console.log(err));
+        try {
+
+            const tasks = await Task.find({userId: userId}).exec();
     
-        return res.status(200).json(tasks);
+            return res.status(200).json(tasks);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to get tasks' });
+            
+        }
     
     }
 
     getTaskById = async (req, res) => {
 
         const taskId = req.params.id;
+
+        try {
+
+            const task = await Task.findById(taskId).exec();
     
-        const task = await Task.findById(taskId).exec().catch(err => console.log(err));
-    
-        return res.status(200).json(task);
+            return res.status(200).json(task);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to get task' });
+            
+        }
     
     }
 
@@ -39,7 +59,13 @@ class TasksController {
     
         newTask.save()
         .then(task => res.status(201).json(task))
-        .catch(err => console.log(err));
+        .catch(error => {
+            
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to add task' });
+
+        });
     
     }
 
@@ -56,10 +82,20 @@ class TasksController {
         }
     
         const updateOptions = {new: true};
+
+        try {
+
+            const updatedTask = await Task.findByIdAndUpdate(taskId, updates, updateOptions).exec();
     
-        const updatedTask = await Task.findByIdAndUpdate(taskId, updates, updateOptions).exec().catch(err => console.log(err));
-    
-        return res.status(200).json(updatedTask);
+            return res.status(200).json(updatedTask);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to update task' });
+            
+        }
     
     }
 
@@ -67,9 +103,19 @@ class TasksController {
 
         const taskId = req.params.id;
 
-        const deletedTask = await Task.findByIdAndDelete(taskId).exec().catch(err => console.log(err));
+        try {
 
-        return res.status(204).json(deletedTask);
+            const deletedTask = await Task.findByIdAndDelete(taskId).exec();
+
+            return res.status(204).json(deletedTask);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to delete task' });
+            
+        }
 
     }
 

@@ -7,9 +7,19 @@ class ListsController {
 
         const userId = req.user.id;
 
-        const lists = await List.find({userId: userId}).exec().catch(err => console.log(err));
-    
-        return res.status(200).json(lists);
+        try {
+
+            const lists = await List.find({userId: userId}).exec();
+
+            return res.status(200).json(lists);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to get lists' })
+            
+        }
     
     }
 
@@ -17,19 +27,39 @@ class ListsController {
 
         const listId = req.params.id;
 
-        const tasks = await Task.find({listId: listId}).exec().catch(err => console.log(err));
+        try {
 
-        return res.status(200).json(tasks);
+            const tasks = await Task.find({listId: listId}).exec();
+
+            return res.status(200).json(tasks);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to get tasks for list' })
+            
+        }
 
     }
 
     getListById = async (req, res) => {
 
         const listId = req.params.id;
-    
-        const list = await List.findById(listId).exec().catch(err => console.log(err));
-    
-        return res.status(200).json(list);
+
+        try {
+
+            const list = await List.findById(listId).exec();
+
+            return res.status(200).json(list);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to get list' });
+            
+        }
     
     }
 
@@ -47,7 +77,13 @@ class ListsController {
     
         newList.save()
         .then(list => res.status(201).json(list))
-        .catch(err => console.log(err));
+        .catch(error => {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to add list' });
+
+        });
     
     }
 
@@ -61,10 +97,20 @@ class ListsController {
         }
     
         const updateOptions = {new: true};
-    
-        const updatedList = await List.findByIdAndUpdate(listId, updates, updateOptions).exec().catch(err => console.log(err));
-    
-        return res.status(200).json(updatedList);
+
+        try {
+
+            const updatedList = await List.findByIdAndUpdate(listId, updates, updateOptions).exec();
+
+            return res.status(200).json(updatedList);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to update list' });
+            
+        }
     
     }
 
@@ -73,9 +119,19 @@ class ListsController {
 
         const listId = req.params.id;
 
-        const deletedList = await List.findByIdAndDelete(listId).exec().catch(err => console.log(err));
+        try {
 
-        return res.status(204).json(deletedList);
+            const deletedList = await List.findByIdAndDelete(listId).exec();
+
+            return res.status(204).json(deletedList);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to delete list' })
+            
+        }
 
     }
 

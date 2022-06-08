@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
-import ListService from '../services/listsService';
-const listService = new ListService();
+import React from 'react';
 
 const Option = (props) => {
 
