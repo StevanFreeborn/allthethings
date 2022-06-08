@@ -52,12 +52,13 @@ export default function NavBar(props) {
                     {
                         props.isLoggedIn && props.isLoggedIn !== 'authenticating' ?
                         <>
-                        <NavLink className='nav-link link-light' to='/tasks'>
-                            Tasks
-                        </NavLink>
 
                         <NavLink className='nav-link link-light' to='/lists'>
                             Lists
+                        </NavLink>
+
+                        <NavLink className='nav-link link-light' to='/tasks'>
+                            Tasks
                         </NavLink>
 
                         <button 

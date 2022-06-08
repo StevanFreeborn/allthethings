@@ -52,7 +52,7 @@ export default function Login(props) {
 
         props.setIsLoggedIn({ isLoggedIn: true });
 
-        return navigate('/tasks');
+        return navigate('/lists');
 
     }
 

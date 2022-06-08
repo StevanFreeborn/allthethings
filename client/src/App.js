@@ -68,7 +68,7 @@ const App = () => {
               <Route path='/lists/:id/tasks' element={<ListTaskTable/>} />
 
               {/* "Default" unprotected route */}
-              <Route path='*' element={<Navigate replace to='/tasks' />} />
+              <Route path='*' element={<Navigate replace to='/lists' />} />
             </>
             : null
         }

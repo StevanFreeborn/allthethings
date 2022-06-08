@@ -28,6 +28,14 @@ const ListRow = (props) => {
                     >
                         <ViewList />
                     </Link>
+                    
+                    <Link
+                        className='btn btn-outline-success m-1'
+                        to={`/tasks/add`}
+                        state={{ listId: props.list._id, listName: props.list.name }}
+                    >
+                        <PlusLg />
+                    </Link>
 
                     <Link
                         className='btn btn-outline-dark m-1'
