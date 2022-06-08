@@ -19,46 +19,46 @@ export default function UpdateTask() {
     const [form, setForm] = useState(null);
     const [options, setOptions] = useState([]);
 
-    const getAllLists = async () => {
-
-        const res = await listService.getAllLists();
-
-        if (!res.ok) {
-            const message = `An error occured: ${res.statusText}`;
-            return window.alert(message);
-        }
-
-        const lists = await res.json();
-
-        setOptions(lists);
-
-    }
-
-    const getTaskById = async () =>  {
-
-        const id = params.id;
-
-        const res = await taskService.getTaskById(id);
-
-        if (!res.ok) {
-            const message = `An error has occurred: ${res.statusText}`;
-            return window.alert(message);
-        }
-
-        const task = await res.json();
-
-        if (!task) {
-            window.alert(`Task with id ${id} not found`);
-            return navigate('/tasks');
-        }
-
-        task.dueDate = task.dueDate.split('T')[0];
-
-        setForm(task);
-
-    }
-
     useEffect(() => {
+
+        const getAllLists = async () => {
+
+            const res = await listService.getAllLists();
+    
+            if (!res.ok) {
+                const message = `An error occured: ${res.statusText}`;
+                return window.alert(message);
+            }
+    
+            const lists = await res.json();
+    
+            setOptions(lists);
+    
+        }
+    
+        const getTaskById = async () =>  {
+    
+            const id = params.id;
+    
+            const res = await taskService.getTaskById(id);
+    
+            if (!res.ok) {
+                const message = `An error has occurred: ${res.statusText}`;
+                return window.alert(message);
+            }
+    
+            const task = await res.json();
+    
+            if (!task) {
+                window.alert(`Task with id ${id} not found`);
+                return navigate('/tasks');
+            }
+    
+            task.dueDate = task.dueDate.split('T')[0];
+    
+            setForm(task);
+    
+        }
 
         getAllLists();
         getTaskById();

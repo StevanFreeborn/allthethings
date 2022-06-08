@@ -5,25 +5,25 @@ const userService = new UserService();
 
 export default function CheckAuth(props) {
 
-  const checkAuth = async () => {
-
-    const res = await userService.checkAuth();
-
-    if (!res.ok) {
-
-      const state = await res.json();
-      props.setIsLoggedIn({ isLoggedIn: state.isLoggedIn })
-      return;
-
-    }
-
-    const state = await res.json();
-
-    props.setIsLoggedIn(state);
-
-  }
-
   useEffect(() => {
+
+    const checkAuth = async () => {
+
+      const res = await userService.checkAuth();
+  
+      if (!res.ok) {
+  
+        const state = await res.json();
+        props.setIsLoggedIn({ isLoggedIn: state.isLoggedIn })
+        return;
+  
+      }
+  
+      const state = await res.json();
+  
+      props.setIsLoggedIn(state);
+  
+    }
 
     checkAuth();
 

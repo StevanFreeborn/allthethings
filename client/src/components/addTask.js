@@ -24,22 +24,22 @@ export default function AddTask() {
         
     });
 
-    const getAllLists = async () => {
-
-        const res = await listService.getAllLists();
-
-        if (!res.ok) {
-            const message = `An error occured: ${res.statusText}`;
-            return window.alert(message);
-        }
-
-        const lists = await res.json();
-
-        setOptions(lists);
-
-    }
-
     useEffect(() => {
+
+        const getAllLists = async () => {
+
+            const res = await listService.getAllLists();
+    
+            if (!res.ok) {
+                const message = `An error occured: ${res.statusText}`;
+                return window.alert(message);
+            }
+    
+            const lists = await res.json();
+    
+            setOptions(lists);
+    
+        }
 
         getAllLists();
 

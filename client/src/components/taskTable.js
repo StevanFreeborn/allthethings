@@ -47,26 +47,26 @@ const TaskRow = (props) => {
 }
 
 
-export default function TaskTable({isLoggedIn}) {
+export default function TaskTable() {
 
     const [tasks, setTasks] = useState([]);
 
-    const getAllTasks = async () => {
-
-        const res = await taskService.getAllTasks();
-
-        if (!res.ok) {
-            const message = `An error occured: ${res.statusText}`;
-            return window.alert(message);
-        }
-
-        const tasks = await res.json();
-
-        setTasks(tasks);
-
-    }
-
     useEffect(() => {
+
+        const getAllTasks = async () => {
+
+            const res = await taskService.getAllTasks();
+    
+            if (!res.ok) {
+                const message = `An error occured: ${res.statusText}`;
+                return window.alert(message);
+            }
+    
+            const tasks = await res.json();
+    
+            setTasks(tasks);
+    
+        }
 
         getAllTasks();
 

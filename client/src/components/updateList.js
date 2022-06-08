@@ -13,29 +13,29 @@ export default function UpdateList() {
 
     const [form, setForm] = useState(null);
 
-    const getListById = async () => {
-
-        const id = params.id;
-
-        const res = await listService.getListById(id);
-
-        if (!res.ok) {
-            const message = `An error has occurred: ${res.statusText}`;
-            return window.alert(message);
-        }
-
-        const list = await res.json();
-
-        if (!list) {
-            window.alert(`list with id ${id} not found`);
-            return navigate('/lists');
-        }
-
-        setForm(list);
-
-    }
-
     useEffect(() => {
+
+        const getListById = async () => {
+
+            const id = params.id;
+    
+            const res = await listService.getListById(id);
+    
+            if (!res.ok) {
+                const message = `An error has occurred: ${res.statusText}`;
+                return window.alert(message);
+            }
+    
+            const list = await res.json();
+    
+            if (!list) {
+                window.alert(`list with id ${id} not found`);
+                return navigate('/lists');
+            }
+    
+            setForm(list);
+    
+        }
 
         getListById();
 
