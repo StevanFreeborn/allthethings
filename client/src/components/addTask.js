@@ -1,21 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import ListDropdown from './listsDropdown';
 
+import ListService from '../services/listsService';
 import TaskService from '../services/tasksService';
+const listService = new ListService();
 const taskService =  new TaskService();
 
 export default function AddTask() {
 
+    const navigate = useNavigate();
+
+    const [options, setOptions] = useState([]);
+
     const [form, setForm] = useState({
 
+        listId: '',
+        listName: '',
         name: '',
         description: '',
         dueDate: ''
         
     });
 
-    const navigate = useNavigate();
+    const getAllLists = async () => {
+
+        const res = await listService.getAllLists();
+
+        if (!res.ok) {
+            const message = `An error occured: ${res.statusText}`;
+            return window.alert(message);
+        }
+
+        const lists = await res.json();
+
+        setOptions(lists);
+
+    }
+
+    useEffect(() => {
+
+        getAllLists();
+
+    }, [options.length]);
 
     const updateForm = (value) => {
 
@@ -44,6 +72,8 @@ export default function AddTask() {
 
         setForm({
 
+            lisdId: '',
+            listName: '',
             name: '',
             position: '',
             dueDate: ''
@@ -73,6 +103,12 @@ export default function AddTask() {
                 <div className='col-12'>
 
                     <form onSubmit={onSubmit}>
+
+                        <ListDropdown
+                            updateForm={updateForm}
+                            existingList={form.listId}
+                            options={options}
+                        />
 
                         <div className='form-group my-2'>
                             <label htmlFor='name'>Name</label>

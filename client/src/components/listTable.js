@@ -44,22 +44,22 @@ export default function ListTable({isLoggedIn}) {
 
     const [lists, setLists] = useState([]);
 
-    useEffect(() => {
+    const getAllLists = async () => {
 
-        const getAllLists = async () => {
+        const res = await listService.getAllLists();
 
-            const res = await listService.getAllLists();
-
-            if (!res.ok) {
-                const message = `An error occured: ${res.statusText}`;
-                return window.alert(message);
-            }
-
-            const lists = await res.json();
-
-            setLists(lists);
-
+        if (!res.ok) {
+            const message = `An error occured: ${res.statusText}`;
+            return window.alert(message);
         }
+
+        const lists = await res.json();
+
+        setLists(lists);
+
+    }
+
+    useEffect(() => {
 
         getAllLists();
 
@@ -105,7 +105,7 @@ export default function ListTable({isLoggedIn}) {
             <div className='row'>
 
                 <div className='col-10'>
-                    
+
                     <h3>Lists</h3>
 
                 </div>
@@ -131,7 +131,7 @@ export default function ListTable({isLoggedIn}) {
 
                 <div className='col-12'>
 
-                <table className='table table-striped'>
+                    <table className='table table-striped'>
 
                         <thead>
                             <tr>

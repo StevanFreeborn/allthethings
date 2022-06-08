@@ -29,6 +29,8 @@ class TasksController {
         const newTask = new Task({
             
             userId: userId,
+            listId: req.body.listId,
+            listName: req.body.listName,
             name: req.body.name,
             description: req.body.description,
             dueDate: req.body.dueDate,
@@ -46,6 +48,8 @@ class TasksController {
         const taskId = req.params.id;
     
         const updates = {
+            listId: req.body.listId,
+            listName: req.body.listName,
             name: req.body.name,
             description: req.body.description,
             dueDate: req.body.dueDate

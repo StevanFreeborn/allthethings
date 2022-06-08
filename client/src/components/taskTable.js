@@ -15,6 +15,7 @@ const TaskRow = (props) => {
     return (
 
         <tr className='align-middle'>
+            <td>{props.task.listName}</td>
             <td>{props.task.name}</td>
             <td>{props.task.description}</td>
             <td>{dueDate}</td>
@@ -50,22 +51,22 @@ export default function TaskTable({isLoggedIn}) {
 
     const [tasks, setTasks] = useState([]);
 
-    useEffect(() => {
+    const getAllTasks = async () => {
 
-        const getAllTasks = async () => {
+        const res = await taskService.getAllTasks();
 
-            const res = await taskService.getAllTasks();
-
-            if (!res.ok) {
-                const message = `An error occured: ${res.statusText}`;
-                return window.alert(message);
-            }
-
-            const tasks = await res.json();
-
-            setTasks(tasks);
-
+        if (!res.ok) {
+            const message = `An error occured: ${res.statusText}`;
+            return window.alert(message);
         }
+
+        const tasks = await res.json();
+
+        setTasks(tasks);
+
+    }
+
+    useEffect(() => {
 
         getAllTasks();
 
@@ -141,6 +142,7 @@ export default function TaskTable({isLoggedIn}) {
 
                         <thead>
                             <tr>
+                                <th>List</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Due Date</th>
