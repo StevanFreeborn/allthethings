@@ -8,34 +8,34 @@ const listService = new ListService();
 
 export default function UpdateList() {
 
-    const [form, setForm] = useState(null);
-
     const params = useParams();
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const [form, setForm] = useState(null);
 
-        const getListById = async () => {
+    const getListById = async () => {
 
-            const id = params.id;
+        const id = params.id;
 
-            const res = await listService.getListById(id);
+        const res = await listService.getListById(id);
 
-            if (!res.ok) {
-                const message = `An error has occurred: ${res.statusText}`;
-                return window.alert(message);
-            }
-
-            const list = await res.json();
-
-            if (!list) {
-                window.alert(`list with id ${id} not found`);
-                return navigate('/lists');
-            }
-
-            setForm(list);
-
+        if (!res.ok) {
+            const message = `An error has occurred: ${res.statusText}`;
+            return window.alert(message);
         }
+
+        const list = await res.json();
+
+        if (!list) {
+            window.alert(`list with id ${id} not found`);
+            return navigate('/lists');
+        }
+
+        setForm(list);
+
+    }
+
+    useEffect(() => {
 
         getListById();
 

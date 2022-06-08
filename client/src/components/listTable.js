@@ -40,7 +40,7 @@ const ListRow = (props) => {
 
 }
 
-export default function ListTable({isLoggedIn}) {
+export default function ListTable() {
 
     const [lists, setLists] = useState([]);
 
