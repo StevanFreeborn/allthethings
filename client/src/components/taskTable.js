@@ -15,7 +15,15 @@ const TaskRow = (props) => {
     return (
 
         <tr className='align-middle'>
-            <td>{props.task.listName}</td>
+            <td>
+                <Link
+                    className='link-dark'
+                    to={`/lists/${props.task.listId}/tasks`}
+                    state={{ listName: props.task.listName }}
+                >
+                    {props.task.listName}
+                </Link>
+            </td>
             <td>{props.task.name}</td>
             <td>{props.task.description}</td>
             <td>{dueDate}</td>

@@ -81,6 +81,7 @@ export default function UpdateTask() {
 
         const updatedTask = {
             listId: form.listId,
+            listName: form.listName,
             name: form.name,
             description: form.description,
             dueDate: form.dueDate
@@ -98,7 +99,7 @@ export default function UpdateTask() {
             return;
         }
 
-        navigate('/tasks');
+        navigate(-1);
 
     }
 
