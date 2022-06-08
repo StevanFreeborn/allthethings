@@ -2,6 +2,10 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PlusLg } from 'react-bootstrap-icons';
+import { ViewList } from 'react-bootstrap-icons';
+import { Pencil } from 'react-bootstrap-icons';
+import { Trash } from 'react-bootstrap-icons';
 
 import ListService from '../services/listsService';
 const listService = new ListService();
@@ -22,21 +26,21 @@ const ListRow = (props) => {
                         to={`/lists/${props.list._id}/tasks`}
                         state={{ listName: props.list.name }}
                     >
-                        Tasks
+                        <ViewList />
                     </Link>
 
                     <Link
-                        className='btn btn-outline-success m-1'
+                        className='btn btn-outline-dark m-1'
                         to={`/lists/update/${props.list._id}`}
                     >
-                        Update
+                        <Pencil />
                     </Link>
 
                     <button
                         className='btn btn-outline-danger m-1'
                         onClick={() => props.deleteList(props.list.id)}
                     >
-                        Delete
+                        <Trash />
                     </button>
 
                 </div>
@@ -120,13 +124,13 @@ export default function ListTable() {
 
                 <div className='col-2'>
 
-                    <div className='d-grid d-md-flex justify-content-md-center'>
+                    <div className='d-grid justify-content-end'>
 
                         <Link
                             className='btn btn-outline-success col-12'
                             to={`/lists/add`}
                         >
-                            Add
+                            <PlusLg />
                         </Link>
 
                     </div>

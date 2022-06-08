@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router';
+import { PlusLg } from 'react-bootstrap-icons';
+import { Check } from 'react-bootstrap-icons';
+import { Pencil } from 'react-bootstrap-icons';
+import { Trash } from 'react-bootstrap-icons';
 
 import ListService from '../services/listsService';
 import TaskService from '../services/tasksService';
@@ -26,19 +30,26 @@ const TaskRow = (props) => {
             <td>
 
                 <div className='d-grid d-md-flex justify-content-md-center'>
-                    
+
+                    <button
+                        className='btn btn-outline-primary m-1'
+                        onClick={() => console.log('complete')}
+                    >
+                        <Check />
+                    </button>
+
                     <Link
-                        className='btn btn-outline-success m-1'
+                        className='btn btn-outline-dark m-1'
                         to={`/tasks/update/${props.task._id}`}
                     >
-                        Update
+                        <Pencil />
                     </Link>
 
                     <button
                         className='btn btn-outline-danger m-1'
                         onClick={() => props.deleteTask(props.task.id)}
                     >
-                        Delete
+                        <Trash />
                     </button>
 
                 </div>
@@ -129,14 +140,14 @@ export default function TaskTable() {
 
                 <div className='col-2'>
 
-                    <div className='d-grid d-md-flex justify-content-md-center'>
+                    <div className='d-grid justify-content-end'>
 
                         <Link
                             className='btn btn-outline-success col-12'
                             to={`/tasks/add`}
                             state={{listId: listId, listName: listName }}
                         >
-                            Add
+                            <PlusLg />
                         </Link>
 
                     </div>
