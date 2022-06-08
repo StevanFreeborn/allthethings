@@ -11,7 +11,8 @@ const TaskSchema = mongoose.Schema({
     listName: { type: String },
     name: { type: String, required: true, trim: true },
     description: { type: String, required: true, trim: true },
-    dueDate: { type: Date, required: true, trim: true }
+    dueDate: { type: Date, required: true, trim: true },
+    complete: { type: Boolean, default: false }
 
 }, taskSchemaOptions);
 

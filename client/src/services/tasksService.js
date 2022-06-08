@@ -41,6 +41,21 @@ class TaskService {
 
     }
 
+    completeTask = async (id) => {
+
+        const res = await fetch(`/api/tasks/complete/${id}`, {
+
+            method: 'POST',
+            headers: {
+                'x-access-token': localStorage.getItem('jwtToken')
+            },
+
+        });
+
+        return res;
+
+    }
+
     addTask = async (newTask) => {
 
         const res = await fetch('/api/tasks/add', {

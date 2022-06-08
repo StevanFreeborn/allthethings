@@ -8,6 +8,7 @@ import { Pencil } from 'react-bootstrap-icons';
 import { Trash } from 'react-bootstrap-icons';
 
 import TaskService from '../services/tasksService';
+import { set } from 'mongoose';
 const taskService = new TaskService();
 
 const TaskRow = (props) => {
@@ -37,7 +38,7 @@ const TaskRow = (props) => {
 
                     <button
                         className='btn btn-outline-primary m-1'
-                        onClick={() => console.log('complete')}
+                        onClick={() => props.completeTask(props.task.id)}
                     >
                         <Check />
                     </button>
@@ -65,7 +66,6 @@ const TaskRow = (props) => {
 
 }
 
-
 export default function TaskTable() {
 
     const [tasks, setTasks] = useState([]);
@@ -81,7 +81,9 @@ export default function TaskTable() {
                 return window.alert(message);
             }
     
-            const tasks = await res.json();
+            let tasks = await res.json();
+
+            tasks = tasks.filter(task => task.complete !== true);
     
             setTasks(tasks);
     
@@ -101,7 +103,22 @@ export default function TaskTable() {
         }
 
         const newTasks = tasks.filter(task => task._id !== id);
+        
+        setTasks(newTasks);
 
+    }
+
+    const completeTask = async (id) => {
+
+        const res = await taskService.completeTask(id);
+
+        if (!res.ok) {
+            const message = `An error occured: ${res.statusText}`;
+            return window.alert(message);
+        }
+        
+        const newTasks = tasks.filter(task => task._id !== id);
+        
         setTasks(newTasks);
 
     }
@@ -115,6 +132,7 @@ export default function TaskTable() {
                 <TaskRow
                     task={task}
                     deleteTask={ () => deleteTask(task._id) }
+                    completeTask={ () => completeTask(task._id) }
                     key={task._id}
                 />
 

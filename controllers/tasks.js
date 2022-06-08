@@ -99,6 +99,33 @@ class TasksController {
     
     }
 
+    completeTask = async (req, res) => {
+
+        const taskId = req.params.id;
+
+        const updates = {
+            complete: true
+        }
+    
+        const updateOptions = {new: true};
+
+        try {
+
+            const updatedTask = await Task.findByIdAndUpdate(taskId, updates, updateOptions).exec();
+
+            return res.status(200).json(updatedTask);
+
+        }
+        catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to complete task' });
+
+        }
+
+    }
+
     deleteTaskById = async (req, res) => {
 
         const taskId = req.params.id;
