@@ -1,4 +1,5 @@
 const List = require('../models/list');
+const Task = require('../models/task');
 
 class ListsController {
 
@@ -10,6 +11,16 @@ class ListsController {
     
         return res.status(200).json(lists);
     
+    }
+
+    getListTasks = async (req, res) => {
+
+        const listId = req.params.id;
+
+        const tasks = await Task.find({listId: listId}).exec().catch(err => console.log(err));
+
+        return res.status(200).json(tasks);
+
     }
 
     getListById = async (req, res) => {

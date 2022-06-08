@@ -5,10 +5,13 @@ const verifyJWT = require('../middleware/authorize');
 
 module.exports = (app) => {
 
-    // get a list of all the lists.
+    // get a list of all the lists
     app.get('/api/lists', verifyJWT, listController.getAllLists);
 
-    // get a list by id.
+    // get all tasks for a list
+    app.get('/api/lists/:id/tasks', verifyJWT, listController.getListTasks)
+
+    // get a list by id
     app.get('/api/lists/:id', verifyJWT, listController.getListById);
 
     // add a list

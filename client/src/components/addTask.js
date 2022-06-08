@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import ListDropdown from './listsDropdown';
 
 import ListService from '../services/listsService';
@@ -11,13 +11,17 @@ const taskService =  new TaskService();
 export default function AddTask() {
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const listId = location.state?.listId ? location.state.listId : '';
+    const listName = location.state?.listName ? location.state.listName : '';
 
     const [options, setOptions] = useState([]);
 
     const [form, setForm] = useState({
 
-        listId: '',
-        listName: '',
+        listId: listId,
+        listName: listName,
         name: '',
         description: '',
         dueDate: ''
@@ -80,7 +84,7 @@ export default function AddTask() {
 
         });
 
-        navigate('/tasks');
+        navigate(-1);
 
     }
 

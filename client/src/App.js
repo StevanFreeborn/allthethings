@@ -11,6 +11,7 @@ import UpdateTask from './components/updateTask';
 import ListTable from './components/listTable';
 import AddList from './components/addList';
 import UpdateList from './components/updateList';
+import ListTaskTable from './components/listTaskTable';
 
 import Register from './components/register';
 import Login from './components/login';
@@ -60,9 +61,11 @@ const App = () => {
               <Route path='/tasks' element={<TaskTable />} />
               <Route path='/tasks/add' element={<AddTask />} />
               <Route path='/tasks/update/:id' element={<UpdateTask />} />
+              
               <Route path='/lists' element={<ListTable />} />
               <Route path='/lists/add' element={<AddList />} />
               <Route path='/lists/update/:id' element={<UpdateList />} />
+              <Route path='/lists/:id/tasks' element={<ListTaskTable/>} />
 
               {/* "Default" unprotected route */}
               <Route path='*' element={<Navigate replace to='/tasks' />} />

@@ -18,6 +18,14 @@ const ListRow = (props) => {
                 <div className='d-grid d-md-flex justify-content-md-center'>
 
                     <Link
+                        className='btn btn-outline-primary m-1'
+                        to={`/lists/${props.list._id}/tasks`}
+                        state={{ listName: props.list.name }}
+                    >
+                        Tasks
+                    </Link>
+
+                    <Link
                         className='btn btn-outline-success m-1'
                         to={`/lists/update/${props.list._id}`}
                     >

@@ -12,6 +12,18 @@ class ListService {
 
     };
 
+    getListTasks = async (id) => {
+
+        const res = await fetch(`/api/lists/${id}/tasks`, {
+            headers: {
+                'x-access-token': localStorage.getItem('jwtToken')
+            }
+        });
+
+        return res; 
+
+    }
+
     getListById = async (id) => {
 
         const res = await fetch(`/api/lists/${id}`, {
