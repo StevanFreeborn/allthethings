@@ -102,7 +102,14 @@ class ListsController {
 
             const updatedList = await List.findByIdAndUpdate(listId, updates, updateOptions).exec();
 
-            return res.status(200).json(updatedList);
+            const taskUpdates = await Task.updateMany({listId: updatedList.id}, {listName: updatedList.name}).exec();
+
+            const listAndTaskUpdates = {
+                updatedList: updatedList,
+                taskUpdates: taskUpdates
+            }
+
+            return res.status(200).json(listAndTaskUpdates);
             
         } catch (error) {
 
@@ -114,7 +121,6 @@ class ListsController {
     
     }
 
-    // TODO: How to handle the tasks that reference the deleted list?
     deleteListById = async (req, res) => {
 
         const listId = req.params.id;
@@ -123,7 +129,14 @@ class ListsController {
 
             const deletedList = await List.findByIdAndDelete(listId).exec();
 
-            return res.status(204).json(deletedList);
+            const taskUpdates = await Task.updateMany({listId: deletedList.id}, {listId: '', listName: ''}).exec();
+
+            const deletedListAndTaskUpdates = {
+                deletedList: deletedList,
+                taskUpdates: taskUpdates
+            }
+
+            return res.status(204).json(deletedListAndTaskUpdates);
             
         } catch (error) {
 
