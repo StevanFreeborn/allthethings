@@ -12,6 +12,8 @@ class UserController {
         const email = req.body.email;
         let password = req.body.password;
 
+        if (!username || !firstName || !lastName || !email || !password) return res.status(400).json({ error: 'Required field(s) missing' })
+
         try {
 
             // check database if user already exists with entered username or email
@@ -72,6 +74,8 @@ class UserController {
 
         const username = req.body.username;
         const password = req.body.password;
+
+        if (!username || !password) return res.status(400).json({ error: 'Required field(s) missing' })
 
         try {
 

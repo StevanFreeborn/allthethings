@@ -6,7 +6,7 @@ const taskSchemaOptions = {
 
 const TaskSchema = mongoose.Schema({
 
-    userId: { type: String },
+    userId: { type: String, required: true, trim: true },
     listId: { type: String },
     listName: { type: String },
     name: { type: String, required: true, trim: true },

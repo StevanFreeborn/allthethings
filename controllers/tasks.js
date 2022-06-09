@@ -6,6 +6,8 @@ class TasksController {
 
         const userId = req.user.id;
 
+        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' });
+
         try {
 
             const tasks = await Task.find({userId: userId}).exec();
@@ -26,6 +28,8 @@ class TasksController {
 
         const taskId = req.params.id;
 
+        if (!taskId) return res.status(400).json({ error: 'Required field(s) missing' });
+
         try {
 
             const task = await Task.findById(taskId).exec();
@@ -45,15 +49,20 @@ class TasksController {
     addTask = async (req, res) => {
 
         const userId = req.user.id;
+        const name = req.body.name;
+        const description = req.body.description;
+        const dueDate = req.body.dueDate;
+
+        if (!userId || !name || !description || !dueDate) return res.status(400).json({ error: 'Required field(s) missing' });
 
         const newTask = new Task({
             
             userId: userId,
             listId: req.body.listId,
             listName: req.body.listName,
-            name: req.body.name,
-            description: req.body.description,
-            dueDate: req.body.dueDate,
+            name: name,
+            description: description,
+            dueDate: dueDate,
     
         });
     
@@ -72,13 +81,18 @@ class TasksController {
     updateTaskById = async (req, res) => {
 
         const taskId = req.params.id;
+        const name = req.body.name;
+        const description = req.body.description;
+        const dueDate = req.body.dueDate;
+
+        if (!taskId || !name || !description || !dueDate) return res.status(400).json({ error: 'Required field(s) missing' });
     
         const updates = {
             listId: req.body.listId,
             listName: req.body.listName,
-            name: req.body.name,
-            description: req.body.description,
-            dueDate: req.body.dueDate
+            name: name,
+            description: description,
+            dueDate: dueDate
         }
     
         const updateOptions = {new: true};
@@ -102,6 +116,8 @@ class TasksController {
     completeTask = async (req, res) => {
 
         const taskId = req.params.id;
+
+        if (!taskId) return res.status(400).json({ error: 'Required field(s) missing' });
 
         const updates = {
             complete: true
@@ -129,6 +145,8 @@ class TasksController {
     deleteTaskById = async (req, res) => {
 
         const taskId = req.params.id;
+
+        if (!taskId) return res.status(400).json({ error: 'Required field(s) missing' })
 
         try {
 

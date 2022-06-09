@@ -123,7 +123,6 @@ export default function UpdateList() {
                                         id='description'
                                         value={form.description}
                                         onChange={(e) => updateForm({ description: e.target.value })}
-                                        required
                                     />
                                 </div>
 

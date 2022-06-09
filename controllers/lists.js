@@ -7,6 +7,8 @@ class ListsController {
 
         const userId = req.user.id;
 
+        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' })
+
         try {
 
             const lists = await List.find({userId: userId}).exec();
@@ -26,6 +28,8 @@ class ListsController {
     getListTasks = async (req, res) => {
 
         const listId = req.params.id;
+
+        if (!listId) return res.status(400).json({ error: 'Required field(s) missing' })
 
         try {
 
@@ -47,6 +51,8 @@ class ListsController {
 
         const listId = req.params.id;
 
+        if (!listId) return res.status(400).json({ error: 'Required field(s) missing' })
+
         try {
 
             const list = await List.findById(listId).exec();
@@ -66,6 +72,8 @@ class ListsController {
     addList = async (req, res) => {
 
         const userId = req.user.id;
+
+        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' })
 
         const newList = new List({
             
@@ -90,9 +98,12 @@ class ListsController {
     updateListById = async (req, res) => {
 
         const listId = req.params.id;
+        const name = req.body.name;
+
+        if (!listId || !name) return res.status(400).json({ error: 'Required field(s) missing' })
     
         const updates = {
-            name: req.body.name,
+            name: name,
             description: req.body.description,
         }
     
@@ -124,6 +135,8 @@ class ListsController {
     deleteListById = async (req, res) => {
 
         const listId = req.params.id;
+
+        if (!listId) return res.status(400).json({ error: 'Required field(s) missing' })
 
         try {
 

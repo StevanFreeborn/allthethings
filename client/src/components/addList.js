@@ -91,7 +91,6 @@ export default function AddList() {
                                 id='description'
                                 value={form.description}
                                 onChange={(e) => updateForm({ description: e.target.value })}
-                                required
                             />
                         </div>
 
