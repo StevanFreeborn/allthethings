@@ -7,7 +7,7 @@ class ListsController {
 
         const userId = req.user.id;
 
-        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' });
 
         try {
 
@@ -19,7 +19,7 @@ class ListsController {
 
             console.log(error);
 
-            return res.status(500).json({ error: 'Unable to get lists' })
+            return res.status(500).json({ error: 'Unable to get lists' });
             
         }
     
@@ -32,9 +32,14 @@ class ListsController {
 
         if (!userId || !listId) return res.status(400).json({ error: 'Required field(s) missing' })
 
+        const query = {
+            userId: userId,
+            listId: listId
+        };
+
         try {
 
-            const tasks = await Task.find({userId: userId, listId: listId}).exec();
+            const tasks = await Task.find(query).exec();
 
             return res.status(200).json(tasks);
             
@@ -42,7 +47,7 @@ class ListsController {
 
             console.log(error);
 
-            return res.status(500).json({ error: 'Unable to get tasks for list' })
+            return res.status(500).json({ error: 'Unable to get tasks for list' });
             
         }
 
@@ -52,14 +57,17 @@ class ListsController {
 
         const userId = req.user.id;
         const listId = req.params.id;
-        console.log(userId);
-        console.log(listId);
 
         if (!userId || !listId) return res.status(400).json({ error: 'Required field(s) missing' })
 
+        const query = {
+            userId: userId,
+            _id: listId
+        };
+
         try {
 
-            const list = await List.findOne({userId: userId, _id: listId}).exec();
+            const list = await List.findOne(query).exec();
 
             return res.status(200).json(list);
             
@@ -77,7 +85,7 @@ class ListsController {
 
         const userId = req.user.id;
 
-        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' });
 
         const newList = new List({
             
@@ -110,12 +118,12 @@ class ListsController {
         const listQuery = {
             userId: userId,
             _id: listId
-        }
+        };
     
         const updates = {
             name: name,
             description: req.body.description,
-        }
+        };
     
         const updateOptions = {new: true};
 
@@ -126,14 +134,14 @@ class ListsController {
             const taskQuery = {
                 userId: userId,
                 listId: listId
-            }
+            };
 
             const taskUpdates = await Task.updateMany(taskQuery, {listName: updatedList.name}).exec();
 
             const listAndTaskUpdates = {
                 updatedList: updatedList,
                 taskUpdates: taskUpdates
-            }
+            };
 
             return res.status(200).json(listAndTaskUpdates);
             
@@ -152,12 +160,12 @@ class ListsController {
         const userId = req.user.id;
         const listId = req.params.id;
 
-        if (!userId || !listId) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!userId || !listId) return res.status(400).json({ error: 'Required field(s) missing' });
 
         const listQuery = {
             userId: userId,
             _id: listId
-        }
+        };
 
         try {
 
@@ -166,14 +174,14 @@ class ListsController {
             const taskQuery = {
                 userId: userId,
                 listId: listId
-            }
+            };
 
             const taskUpdates = await Task.updateMany(taskQuery, {listId: '', listName: ''}).exec();
 
             const deletedListAndTaskUpdates = {
                 deletedList: deletedList,
                 taskUpdates: taskUpdates
-            }
+            };
 
             return res.status(204).json(deletedListAndTaskUpdates);
             
@@ -181,7 +189,7 @@ class ListsController {
 
             console.log(error);
 
-            return res.status(500).json({ error: 'Unable to delete list' })
+            return res.status(500).json({ error: 'Unable to delete list' });
             
         }
 
