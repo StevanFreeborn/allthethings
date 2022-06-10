@@ -24,6 +24,7 @@ class TasksController {
     
     }
 
+    // TODO: Update query to make use of userId too.
     getTaskById = async (req, res) => {
 
         const taskId = req.params.id;
@@ -78,6 +79,7 @@ class TasksController {
     
     }
 
+    // TODO update query to make use of user id too
     updateTaskById = async (req, res) => {
 
         const taskId = req.params.id;
@@ -113,6 +115,7 @@ class TasksController {
     
     }
 
+    // TODO: Update query to make use of user id
     completeTask = async (req, res) => {
 
         const taskId = req.params.id;
@@ -142,6 +145,7 @@ class TasksController {
 
     }
 
+    // TODO: Update query to make use of userId too
     deleteTaskById = async (req, res) => {
 
         const taskId = req.params.id;

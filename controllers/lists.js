@@ -27,13 +27,14 @@ class ListsController {
 
     getListTasks = async (req, res) => {
 
+        const userId = req.user.id;
         const listId = req.params.id;
 
-        if (!listId) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!userId || !listId) return res.status(400).json({ error: 'Required field(s) missing' })
 
         try {
 
-            const tasks = await Task.find({listId: listId}).exec();
+            const tasks = await Task.find({userId: userId, listId: listId}).exec();
 
             return res.status(200).json(tasks);
             
@@ -49,13 +50,16 @@ class ListsController {
 
     getListById = async (req, res) => {
 
+        const userId = req.user.id;
         const listId = req.params.id;
+        console.log(userId);
+        console.log(listId);
 
-        if (!listId) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!userId || !listId) return res.status(400).json({ error: 'Required field(s) missing' })
 
         try {
 
-            const list = await List.findById(listId).exec();
+            const list = await List.findOne({userId: userId, _id: listId}).exec();
 
             return res.status(200).json(list);
             
@@ -97,10 +101,16 @@ class ListsController {
 
     updateListById = async (req, res) => {
 
+        const userId = req.user.id;
         const listId = req.params.id;
         const name = req.body.name;
 
-        if (!listId || !name) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!listId || !userId || !name) return res.status(400).json({ error: 'Required field(s) missing' });
+
+        const listQuery = {
+            userId: userId,
+            _id: listId
+        }
     
         const updates = {
             name: name,
@@ -111,9 +121,14 @@ class ListsController {
 
         try {
 
-            const updatedList = await List.findByIdAndUpdate(listId, updates, updateOptions).exec();
+            const updatedList = await List.findOneAndUpdate(listQuery, updates, updateOptions).exec();
 
-            const taskUpdates = await Task.updateMany({listId: updatedList.id}, {listName: updatedList.name}).exec();
+            const taskQuery = {
+                userId: userId,
+                listId: listId
+            }
+
+            const taskUpdates = await Task.updateMany(taskQuery, {listName: updatedList.name}).exec();
 
             const listAndTaskUpdates = {
                 updatedList: updatedList,
@@ -134,15 +149,26 @@ class ListsController {
 
     deleteListById = async (req, res) => {
 
+        const userId = req.user.id;
         const listId = req.params.id;
 
-        if (!listId) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!userId || !listId) return res.status(400).json({ error: 'Required field(s) missing' })
+
+        const listQuery = {
+            userId: userId,
+            _id: listId
+        }
 
         try {
 
-            const deletedList = await List.findByIdAndDelete(listId).exec();
+            const deletedList = await List.findOneAndDelete(listQuery).exec();
 
-            const taskUpdates = await Task.updateMany({listId: deletedList.id}, {listId: '', listName: ''}).exec();
+            const taskQuery = {
+                userId: userId,
+                listId: listId
+            }
+
+            const taskUpdates = await Task.updateMany(taskQuery, {listId: '', listName: ''}).exec();
 
             const deletedListAndTaskUpdates = {
                 deletedList: deletedList,

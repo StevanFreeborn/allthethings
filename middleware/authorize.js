@@ -8,21 +8,32 @@ const verifyJWT = (req, res, next) => {
     // if no token return error
     if (!token) return res.status(403).json({ error: 'Unauthorized request', isLoggedIn: false });
 
-    // verify token using verify() method from jsonwebtoken
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    try {
 
-    // set user object values in request from decoded web token to be passed to next request.
-    req.user = {
+        // verify token using verify() method from jsonwebtoken
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        id: decoded.id,
-        username: decoded.username,
-        firstName: decoded.firstName,
-        lastName: decoded.lastName,
-        email: decoded.email
+        // set user object values in request from decoded web token to be passed to next request.
+        req.user = {
 
-    };
+            id: decoded.id,
+            username: decoded.username,
+            firstName: decoded.firstName,
+            lastName: decoded.lastName,
+            email: decoded.email
 
-    next();
+        };
+
+        return next();
+
+    } catch (error) {
+
+        console.log(error);
+
+        // token couldn't be verified
+        return res.status(403).json({ error: 'Unauthorized request', isLoggedIn: false });
+
+    }
 
 }
 

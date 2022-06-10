@@ -8,7 +8,6 @@ import { Pencil } from 'react-bootstrap-icons';
 import { Trash } from 'react-bootstrap-icons';
 
 import TaskService from '../services/tasksService';
-import { set } from 'mongoose';
 const taskService = new TaskService();
 
 const TaskRow = (props) => {
