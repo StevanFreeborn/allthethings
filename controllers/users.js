@@ -30,9 +30,19 @@ class UserController {
             return res.status(500).json({ error: 'Unable to register new user'});
 
         }
+        
+        try {
 
-        // hash entered password before create new user
-        password = await bcrypt.hash(password, 10).catch(err => console.log(err));
+            // hash entered password before create new user
+            password = await bcrypt.hash(password, 10);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to register new user'}); 
+            
+        }
 
         // create new user
         const newUser = new User({
