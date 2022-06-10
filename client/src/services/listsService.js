@@ -1,10 +1,12 @@
 class ListService {
 
+    jwtToken = localStorage.getItem('jwtToken');
+
     getAllLists = async () => {
 
         const res = await fetch(`/api/lists`, {
             headers: {
-                'x-access-token': localStorage.getItem('jwtToken')
+                'x-access-token': this.jwtToken
             }
         })
 
@@ -16,7 +18,7 @@ class ListService {
 
         const res = await fetch(`/api/lists/${id}/tasks`, {
             headers: {
-                'x-access-token': localStorage.getItem('jwtToken')
+                'x-access-token': this.jwtToken
             }
         });
 
@@ -28,7 +30,7 @@ class ListService {
 
         const res = await fetch(`/api/lists/${id}`, {
             headers: {
-                'x-access-token': localStorage.getItem('jwtToken')
+                'x-access-token': this.jwtToken
             }
         });
 
@@ -43,7 +45,7 @@ class ListService {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-access-token': localStorage.getItem('jwtToken')
+                'x-access-token': this.jwtToken
             },
             body: updatedList
 
@@ -60,7 +62,7 @@ class ListService {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-access-token': localStorage.getItem('jwtToken')
+                'x-access-token': this.jwtToken
             },
             body: newList
 
@@ -76,7 +78,7 @@ class ListService {
 
             method: 'DELETE',
             headers: {
-                'x-access-token': localStorage.getItem('jwtToken')
+                'x-access-token': this.jwtToken
             }
     
         });

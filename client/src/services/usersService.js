@@ -1,5 +1,7 @@
 class UserService {
 
+    jwtToken = localStorage.getItem('jwtToken');
+
     register = async (user) => {
 
         const res = await fetch('/api/users/register', {
@@ -36,7 +38,7 @@ class UserService {
 
         const res = await fetch(`/api/users/auth`, {
             headers: {
-                'x-access-token': localStorage.getItem('jwtToken')
+                'x-access-token': this.jwtToken
             }
         });
 
