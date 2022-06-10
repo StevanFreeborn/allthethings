@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import UserService from '../services/usersService';
 const userService = new UserService();
@@ -101,11 +102,20 @@ export default function Login(props) {
                         </div>
 
                         <div className="form-group my-4">
+
                             <input
                                 type="submit"
                                 value="Login"
                                 className="btn btn-outline-success"
                             />
+
+                            <Link
+                                className='link-dark m-3'
+                                to={`/users/register`}
+                            >
+                                Don't have an account? Register here.
+                            </Link>
+                            
                         </div>
 
                     </form>

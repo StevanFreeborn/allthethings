@@ -61,12 +61,17 @@ export default function NavBar(props) {
                             Tasks
                         </NavLink>
 
+                        <NavLink className='nav-link link-light' to='/users/profile'>
+                            Profile
+                        </NavLink>
+
                         <button 
-                            className='btn btn-link nav-link link-light'
+                            className='btn btn-logout nav-link link-light border-0'
                             onClick={handleLogOut}
                         >
                             Logout
                         </button>
+
                         </>
                         : '' 
                     }

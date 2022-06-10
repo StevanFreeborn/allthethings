@@ -15,14 +15,10 @@ const verifyJWT = (req, res, next) => {
 
         // set user object values in request from decoded web token to be passed to next request.
         req.user = {
-
             id: decoded.id,
-            username: decoded.username,
-            firstName: decoded.firstName,
-            lastName: decoded.lastName,
-            email: decoded.email
-
         };
+
+        console.log(`Request By: ${req.user.id}`);
 
         return next();
 

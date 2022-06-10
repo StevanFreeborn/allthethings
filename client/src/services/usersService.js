@@ -1,7 +1,5 @@
 class UserService {
 
-    jwtToken = localStorage.getItem('jwtToken');
-
     register = async (user) => {
 
         const res = await fetch('/api/users/register', {
@@ -38,7 +36,7 @@ class UserService {
 
         const res = await fetch(`/api/users/auth`, {
             headers: {
-                'x-access-token': this.jwtToken
+                'x-access-token': localStorage.getItem('jwtToken')
             }
         });
 
@@ -49,6 +47,33 @@ class UserService {
     logout = () => {
 
         return localStorage.removeItem('jwtToken');
+
+    }
+
+    getUserById = async () => {
+
+        const res = await fetch(`/api/users/user`, {
+            headers: {
+                'x-access-token': localStorage.getItem('jwtToken')
+            }
+        });
+
+        return res;
+
+    }
+
+    updateUserById = async (updatedUser) => {
+
+        const res = await fetch('/api/users/update', {
+            method: 'POST',
+            headers: {
+                'x-access-token': localStorage.getItem('jwtToken'),
+                'Content-Type': 'application/json'
+            },
+            body: updatedUser
+        });
+
+        return res;
 
     }
 

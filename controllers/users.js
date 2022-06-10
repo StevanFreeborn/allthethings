@@ -6,13 +6,10 @@ class UserController {
 
     register = async (req, res) => {
 
-        const username = req.body.username;
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const email = req.body.email;
+        const { username, firstName, lastName, email } = req.body;
         let password = req.body.password;
 
-        if (!username || !firstName || !lastName || !email || !password) return res.status(400).json({ error: 'Required field(s) missing' })
+        if (!username || !firstName || !lastName || !email || !password) return res.status(400).json({ error: 'Required field(s) missing' });
 
         try {
 
@@ -82,8 +79,7 @@ class UserController {
 
     login = async (req, res) => {
 
-        const username = req.body.username;
-        const password = req.body.password;
+        const { username, password } = req.body;
 
         if (!username || !password) return res.status(400).json({ error: 'Required field(s) missing' })
 
@@ -136,6 +132,70 @@ class UserController {
         
         return res.status(200).json({ isLoggedIn: true });
         
+    }
+
+    getUserById = async (req, res) => {
+
+        const userId = req.user.id;
+
+        if (!userId) return res.status(400).json({ error: 'Unable to get profile' });
+
+        const query = {
+            _id: userId
+        };
+
+        try {
+
+            const user = await User.findOne(query).select('-password -createdAt -updatedAt -_id -__v').exec();
+    
+            return res.status(200).json(user);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to get task' });
+            
+        }
+
+    }
+
+    updateUserById = async (req, res) => {
+
+        const userId = req.user.id;
+        const { username, firstName, lastName, email } = req.body;
+
+        if (!userId || !username || !firstName || !lastName || !email ) return res.status(400).json({ error: 'Required field(s) missing' });
+
+        const query = {
+            _id: userId
+        };
+
+        const updates = {
+            username: username,
+            firstName: firstName,
+            lastName: lastName,
+            email: email
+        };
+    
+        const updateOptions = {new: true};
+
+        try {
+
+            const updatedUser = await User.findOneAndUpdate(query, updates, updateOptions).select('-password -createdAt -updatedAt -_id -__v').exec();
+
+            return res.status(200).json(updatedUser);
+            
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to update task' });
+            
+        }
+
+
+
     }
 
 }

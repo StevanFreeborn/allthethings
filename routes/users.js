@@ -16,4 +16,10 @@ module.exports = (app) => {
     // check if user has logged in
     app.get('/api/users/auth', verifyJWT, userController.checkAuthStatus);
 
+    // get user information
+    app.get('/api/users/user', verifyJWT, userController.getUserById);
+
+    // update user information
+    app.post('/api/users/update', verifyJWT, userController.updateUserById);
+
 }

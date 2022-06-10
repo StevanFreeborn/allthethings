@@ -84,13 +84,14 @@ class ListsController {
     addList = async (req, res) => {
 
         const userId = req.user.id;
+        const name = req.body.name;
 
-        if (!userId) return res.status(400).json({ error: 'Required field(s) missing' });
+        if (!userId || !name) return res.status(400).json({ error: 'Required field(s) missing' });
 
         const newList = new List({
             
             userId: userId,
-            name: req.body.name,
+            name: name,
             description: req.body.description,
     
         });

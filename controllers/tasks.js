@@ -55,9 +55,7 @@ class TasksController {
     addTask = async (req, res) => {
 
         const userId = req.user.id;
-        const name = req.body.name;
-        const description = req.body.description;
-        const dueDate = req.body.dueDate;
+        const { name, description, dueDate } = req.body;
 
         if (!userId || !name || !description || !dueDate) return res.status(400).json({ error: 'Required field(s) missing' });
 
@@ -88,9 +86,7 @@ class TasksController {
 
         const userId = req.user.id;
         const taskId = req.params.id;
-        const name = req.body.name;
-        const description = req.body.description;
-        const dueDate = req.body.dueDate;
+        const { name, description, dueDate } = req.body;
 
         if (!userId || !taskId || !name || !description || !dueDate) return res.status(400).json({ error: 'Required field(s) missing' });
         

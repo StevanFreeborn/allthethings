@@ -1,26 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
 
 import UserService from '../services/usersService';
 const userService = new UserService();
 
-export default function Register() {
+export default function UserProfile() {
 
-    const [form, setForm] = useState({
+    const navigate = useNavigate();
+
+    const [profile, setProfile] = useState({
+
         username: '',
         firstName: '',
         lastName: '',
         email: '',
-        password: ''
+        
     });
 
-    const navigate = useNavigate();
+    useEffect(() => {
 
-    const updateForm = (value) => {
+        const getUserProfile = async () => {
 
-        return setForm(prev => {
+            const res = await userService.getUserById();
+    
+            if (!res.ok) {
+                const message = `An error occured: ${res.statusText}`;
+                return window.alert(message);
+            }
+    
+            const profile = await res.json();
+    
+            setProfile(profile);
+    
+        }
+
+        getUserProfile();
+
+    }, []);
+
+    const updateProfile = (value) => {
+
+        return setProfile(prev => {
 
             return {...prev, ...value };
 
@@ -32,30 +53,18 @@ export default function Register() {
 
         e.preventDefault();
 
-        const newUser = { ...form }
+        const updatedProfile = { ...profile };
 
-        const newUserJson = JSON.stringify(newUser);
+        const updatedProfileJson = JSON.stringify(updatedProfile);
 
-        const res = await userService.register(newUserJson);
-
-        const data = await res.json();
+        const res = await userService.updateUserById(updatedProfileJson);
 
         if (!res.ok) {
-            const message = data.error;
+            const message = `An error has occurred: ${res.statusText}`;
             return window.alert(message);
         }
 
-        setForm({
-
-            username: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: ''
-
-        });
-
-        navigate('/users/login');
+        navigate(0);
 
     }
 
@@ -67,7 +76,7 @@ export default function Register() {
 
                 <div className='col-12'>
 
-                    <h3>Register</h3>
+                    <h3>Profile</h3>
 
                 </div>
 
@@ -85,8 +94,8 @@ export default function Register() {
                                 type='text'
                                 className='form-control'
                                 id='username'
-                                value={form.username}
-                                onChange={(e) => updateForm({ username: e.target.value })}
+                                value={profile.username}
+                                onChange={(e) => updateProfile({ username: e.target.value })}
                                 required
                             />
                         </div>
@@ -97,8 +106,8 @@ export default function Register() {
                                 type='text'
                                 className='form-control'
                                 id='firstName'
-                                value={form.firstName}
-                                onChange={(e) => updateForm({ firstName: e.target.value })}
+                                value={profile.firstName}
+                                onChange={(e) => updateProfile({ firstName: e.target.value })}
                                 required
                             />
                         </div>
@@ -109,8 +118,8 @@ export default function Register() {
                                 type='text'
                                 className='form-control'
                                 id='lastName'
-                                value={form.lastName}
-                                onChange={(e) => updateForm({ lastName: e.target.value })}
+                                value={profile.lastName}
+                                onChange={(e) => updateProfile({ lastName: e.target.value })}
                                 required
                             />
                         </div>
@@ -121,39 +130,18 @@ export default function Register() {
                                 type='email'
                                 className='form-control'
                                 id='email'
-                                value={form.email}
-                                onChange={(e) => updateForm({ email: e.target.value })}
-                                required
-                            />
-                        </div>
-
-                        <div className='form-group my-2'>
-                            <label htmlFor='password'>Password</label>
-                            <input
-                                type='password'
-                                className='form-control'
-                                id='password'
-                                value={form.password}
-                                onChange={(e) => updateForm({ password: e.target.value })}
+                                value={profile.email}
+                                onChange={(e) => updateProfile({ email: e.target.value })}
                                 required
                             />
                         </div>
 
                         <div className="form-group my-4">
-
                             <input
                                 type="submit"
-                                value="Register"
+                                value="Save"
                                 className="btn btn-outline-success"
                             />
-
-                            <Link
-                                className='link-dark m-3'
-                                to={`/users/login`}
-                            >
-                                Already have an account? Login here.
-                            </Link>
-
                         </div>
 
                     </form>

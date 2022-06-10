@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import './styles/app.css';
 
 import NavBar from './components/navbar';
 
@@ -16,6 +17,7 @@ import ListTaskTable from './components/listTaskTable';
 import Register from './components/register';
 import Login from './components/login';
 import CheckAuth from './components/checkAuth';
+import UserProfile from './components/userProfile';
 
 const App = () => {
 
@@ -66,6 +68,8 @@ const App = () => {
               <Route path='/lists/add' element={<AddList />} />
               <Route path='/lists/update/:id' element={<UpdateList />} />
               <Route path='/lists/:id/tasks' element={<ListTaskTable/>} />
+
+              <Route path='/users/profile' element={<UserProfile/>}/>
 
               {/* "Default" unprotected route */}
               <Route path='*' element={<Navigate replace to='/lists' />} />
