@@ -45,6 +45,7 @@ export default function ListDropdown(props) {
                 id='list'
                 value={defaultValue}
                 onChange={(e) => props.updateForm({ listId: e.target.value, listName: e.target.options[e.target.selectedIndex].text })}
+                autoFocus={props.autoFocus}
             >
                 <option value={'Inbox'}>- Select A List -</option>
                 {getOptions()}

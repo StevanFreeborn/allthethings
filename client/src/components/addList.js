@@ -14,15 +14,19 @@ export default function AddList() {
 
     });
 
+    const [error, setError] = useState('');
+
     const navigate = useNavigate();
 
     const updateForm = (value) => {
 
-        return setForm(prev => {
+        setForm(prev => {
 
             return {...prev, ...value };
 
         });
+
+        return setError('');
 
     }
 
@@ -36,9 +40,12 @@ export default function AddList() {
 
         const res = await listService.addList(newListJson);
 
+        const data = await res.json();
+
         if (!res.ok) {
-            const message = `An error has occurred: ${res.statusText}`;
-            return window.alert(message);
+
+            return setError(data.error);
+
         }
 
         setForm({
@@ -53,7 +60,7 @@ export default function AddList() {
     }
 
     return (
-
+        
         <div className='container-sm'>
 
             <div className='row'>
@@ -76,11 +83,11 @@ export default function AddList() {
                             <label htmlFor='name'>Name</label>
                             <input
                                 type='text'
-                                className='form-control'
+                                className='form-control required'
                                 id='name'
                                 value={form.name}
                                 onChange={(e) => updateForm({ name: e.target.value })}
-                                required
+                                autoFocus
                             />
                         </div>
 
@@ -95,11 +102,19 @@ export default function AddList() {
                         </div>
 
                         <div className="form-group my-4">
+                            
                             <input
                                 type="submit"
                                 value="Save"
                                 className="btn btn-outline-success"
                             />
+
+                            <span
+                                className='text-danger m-3'
+                            >
+                                {error}
+                            </span>
+
                         </div>
 
                     </form>

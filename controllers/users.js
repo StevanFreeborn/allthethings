@@ -167,6 +167,25 @@ class UserController {
 
         if (!userId || !username || !firstName || !lastName || !email ) return res.status(400).json({ error: 'Required field(s) missing' });
 
+        try {
+
+            // check database if user already exists with entered username or email
+            const existingUsername = await User.findOne({ username: username }).exec();
+            const existingEmail = await User.findOne({ email: email }).exec();
+
+            // if user does already exist with username or email return error
+            if (existingUsername && existingUsername.id != userId) return res.status(400).json({ error: 'Invalid username' });
+            if (existingEmail && existingEmail.id != userId) return res.status(400).json({ error: 'Invalid email' });
+
+
+        } catch (error) {
+
+            console.log(error);
+
+            return res.status(500).json({ error: 'Unable to update profile'});
+
+        }
+
         const query = {
             _id: userId
         };

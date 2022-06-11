@@ -16,15 +16,19 @@ export default function Register() {
         password: ''
     });
 
+    const [error, setError] = useState('');
+
     const navigate = useNavigate();
 
     const updateForm = (value) => {
 
-        return setForm(prev => {
+        setForm(prev => {
 
             return {...prev, ...value };
 
         });
+
+        return setError('');
 
     }
 
@@ -41,8 +45,9 @@ export default function Register() {
         const data = await res.json();
 
         if (!res.ok) {
-            const message = data.error;
-            return window.alert(message);
+
+            return setError(data.error);
+
         }
 
         setForm({
@@ -83,11 +88,11 @@ export default function Register() {
                             <label htmlFor='username'>Username</label>
                             <input
                                 type='text'
-                                className='form-control'
+                                className='form-control required'
                                 id='username'
                                 value={form.username}
                                 onChange={(e) => updateForm({ username: e.target.value })}
-                                required
+                                autoFocus
                             />
                         </div>
 
@@ -95,11 +100,10 @@ export default function Register() {
                             <label htmlFor='firstName'>First Name</label>
                             <input
                                 type='text'
-                                className='form-control'
+                                className='form-control required'
                                 id='firstName'
                                 value={form.firstName}
                                 onChange={(e) => updateForm({ firstName: e.target.value })}
-                                required
                             />
                         </div>
 
@@ -107,11 +111,10 @@ export default function Register() {
                             <label htmlFor='lastName'>Last Name</label>
                             <input
                                 type='text'
-                                className='form-control'
+                                className='form-control required'
                                 id='lastName'
                                 value={form.lastName}
                                 onChange={(e) => updateForm({ lastName: e.target.value })}
-                                required
                             />
                         </div>
 
@@ -119,11 +122,10 @@ export default function Register() {
                             <label htmlFor='email'>Email</label>
                             <input
                                 type='email'
-                                className='form-control'
+                                className='form-control required'
                                 id='email'
                                 value={form.email}
                                 onChange={(e) => updateForm({ email: e.target.value })}
-                                required
                             />
                         </div>
 
@@ -131,11 +133,10 @@ export default function Register() {
                             <label htmlFor='password'>Password</label>
                             <input
                                 type='password'
-                                className='form-control'
+                                className='form-control required'
                                 id='password'
                                 value={form.password}
                                 onChange={(e) => updateForm({ password: e.target.value })}
-                                required
                             />
                         </div>
 
@@ -154,6 +155,12 @@ export default function Register() {
                                 Already have an account? Login here.
                             </Link>
 
+                        </div>
+
+                        <div
+                            className='text-danger my-2'
+                        >
+                            {error}
                         </div>
 
                     </form>

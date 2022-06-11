@@ -13,15 +13,19 @@ export default function Login(props) {
         password: ''
     });
 
+    const [error, setError] = useState(' ');
+
     const navigate = useNavigate();
 
     const updateForm = (value) => {
 
-        return setForm(prev => {
+        setForm(prev => {
 
             return {...prev, ...value };
 
         });
+
+        return setError('');
 
     }
 
@@ -38,8 +42,9 @@ export default function Login(props) {
         const data = await res.json();
 
         if (!res.ok) {
-            const message = data.error;
-            return window.alert(message);
+
+            return setError(data.error);
+
         }
 
         localStorage.setItem('jwtToken', data.token);
@@ -81,11 +86,11 @@ export default function Login(props) {
                             <label htmlFor='username'>Username</label>
                             <input
                                 type='text'
-                                className='form-control'
+                                className='form-control required'
                                 id='username'
                                 value={form.username}
                                 onChange={(e) => updateForm({ username: e.target.value })}
-                                required
+                                autoFocus
                             />
                         </div>
 
@@ -93,11 +98,10 @@ export default function Login(props) {
                             <label htmlFor='password'>Password</label>
                             <input
                                 type='password'
-                                className='form-control'
+                                className='form-control required'
                                 id='password'
                                 value={form.password}
                                 onChange={(e) => updateForm({ password: e.target.value })}
-                                required
                             />
                         </div>
 
@@ -116,6 +120,12 @@ export default function Login(props) {
                                 Don't have an account? Register here.
                             </Link>
                             
+                        </div>
+
+                        <div
+                            className='text-danger my-2'
+                        >
+                            {error}
                         </div>
 
                     </form>
