@@ -104,79 +104,83 @@ export default function AddTask() {
 
         <div className='container-sm'>
 
-            <div className='row'>
+            <div className='card p-5'>
 
-                <div className='col-12'>
+                <div className='row'>
 
-                    <h3>Add Task</h3>
+                    <div className='col-12'>
+
+                        <h3>Add Task</h3>
+
+                    </div>
 
                 </div>
 
-            </div>
+                <div className='row'>
 
-            <div className='row'>
+                    <div className='col-12'>
 
-                <div className='col-12'>
+                        <form onSubmit={onSubmit}>
 
-                    <form onSubmit={onSubmit}>
-
-                        <ListDropdown
-                            updateForm={updateForm}
-                            existingList={form.listId}
-                            options={options}
-                            autoFocus={listAutoFocus}
-                        />
-
-                        <div className='form-group my-2'>
-                            <label htmlFor='name'>Name</label>
-                            <input
-                                type='text'
-                                className='form-control required'
-                                id='name'
-                                value={form.name}
-                                onChange={(e) => updateForm({ name: e.target.value })}
-                                autoFocus={nameAutoFocus}
-                            />
-                        </div>
-
-                        <div className='form-group my-2'>
-                            <label htmlFor='description'>Description</label>
-                            <textarea
-                                className='form-control required'
-                                id='description'
-                                value={form.description}
-                                onChange={(e) => updateForm({ description: e.target.value })}
-                            />
-                        </div>
-
-                        <div className='form-group my-2'>
-                            <label htmlFor='dueDate'>Due Date</label>
-                            <input
-                                type='date'
-                                className='form-control required'
-                                id='dueDate'
-                                value={form.dueDate}
-                                onChange={(e) => updateForm({ dueDate: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group my-4">
-
-                            <input
-                                type="submit"
-                                value="Save"
-                                className="btn btn-outline-success"
+                            <ListDropdown
+                                updateForm={updateForm}
+                                existingList={form.listId}
+                                options={options}
+                                autoFocus={listAutoFocus}
                             />
 
-                            <span
-                                className='text-danger m-3'
-                            >
-                                {error}
-                            </span>
+                            <div className='form-group my-2'>
+                                <label htmlFor='name'>Name</label>
+                                <input
+                                    type='text'
+                                    className='form-control required'
+                                    id='name'
+                                    value={form.name}
+                                    onChange={(e) => updateForm({ name: e.target.value })}
+                                    autoFocus={nameAutoFocus}
+                                />
+                            </div>
 
-                        </div>
+                            <div className='form-group my-2'>
+                                <label htmlFor='description'>Description</label>
+                                <textarea
+                                    className='form-control required'
+                                    id='description'
+                                    value={form.description}
+                                    onChange={(e) => updateForm({ description: e.target.value })}
+                                />
+                            </div>
 
-                    </form>
+                            <div className='form-group my-2'>
+                                <label htmlFor='dueDate'>Due Date</label>
+                                <input
+                                    type='date'
+                                    className='form-control required'
+                                    id='dueDate'
+                                    value={form.dueDate}
+                                    onChange={(e) => updateForm({ dueDate: e.target.value })}
+                                />
+                            </div>
+
+                            <div className="form-group my-4">
+
+                                <input
+                                    type="submit"
+                                    value="Save"
+                                    className="btn btn-outline-success"
+                                />
+
+                                <span
+                                    className='text-danger m-3'
+                                >
+                                    {error}
+                                </span>
+
+                            </div>
+
+                        </form>
+
+                    </div>
 
                 </div>
 

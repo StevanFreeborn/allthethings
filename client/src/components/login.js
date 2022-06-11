@@ -66,69 +66,73 @@ export default function Login(props) {
 
         <div className='container-sm'>
 
-            <div className='row'>
+            <div className='card p-5'>
 
-                <div className='col-12'>
+                <div className='row'>
 
-                    <h3>Login</h3>
+                    <div className='col-12'>
+
+                        <h3>Login</h3>
+
+                    </div>
 
                 </div>
 
-            </div>
+                <div className='row'>
 
-            <div className='row'>
+                    <div className='col-12'>
 
-                <div className='col-12'>
+                        <form onSubmit={onSubmit}>
 
-                    <form onSubmit={onSubmit}>
+                            <div className='form-group my-2'>
+                                <label htmlFor='username'>Username</label>
+                                <input
+                                    type='text'
+                                    className='form-control required'
+                                    id='username'
+                                    value={form.username}
+                                    onChange={(e) => updateForm({ username: e.target.value })}
+                                    autoFocus
+                                />
+                            </div>
 
-                        <div className='form-group my-2'>
-                            <label htmlFor='username'>Username</label>
-                            <input
-                                type='text'
-                                className='form-control required'
-                                id='username'
-                                value={form.username}
-                                onChange={(e) => updateForm({ username: e.target.value })}
-                                autoFocus
-                            />
-                        </div>
+                            <div className='form-group my-2'>
+                                <label htmlFor='password'>Password</label>
+                                <input
+                                    type='password'
+                                    className='form-control required'
+                                    id='password'
+                                    value={form.password}
+                                    onChange={(e) => updateForm({ password: e.target.value })}
+                                />
+                            </div>
 
-                        <div className='form-group my-2'>
-                            <label htmlFor='password'>Password</label>
-                            <input
-                                type='password'
-                                className='form-control required'
-                                id='password'
-                                value={form.password}
-                                onChange={(e) => updateForm({ password: e.target.value })}
-                            />
-                        </div>
+                            <div className="form-group my-4">
 
-                        <div className="form-group my-4">
+                                <input
+                                    type="submit"
+                                    value="Login"
+                                    className="btn btn-outline-success"
+                                />
 
-                            <input
-                                type="submit"
-                                value="Login"
-                                className="btn btn-outline-success"
-                            />
+                                <Link
+                                    className='link-dark m-3'
+                                    to={`/users/register`}
+                                >
+                                    Don't have an account? Register here.
+                                </Link>
 
-                            <Link
-                                className='link-dark m-3'
-                                to={`/users/register`}
+                            </div>
+
+                            <div
+                                className='text-danger my-2'
                             >
-                                Don't have an account? Register here.
-                            </Link>
-                            
-                        </div>
+                                {error}
+                            </div>
 
-                        <div
-                            className='text-danger my-2'
-                        >
-                            {error}
-                        </div>
+                        </form>
 
-                    </form>
+                    </div>
 
                 </div>
 

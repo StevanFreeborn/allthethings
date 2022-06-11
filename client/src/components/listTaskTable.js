@@ -67,7 +67,7 @@ export default function TaskTable() {
     const location = useLocation();
 
     const listId = params.id;
-    const { listName } = location.state;
+    const listName = location.state?.listName;
 
     const [tasks, setTasks] = useState([]);
 
