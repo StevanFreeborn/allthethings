@@ -85,6 +85,8 @@ export default function TaskTable() {
     
             let tasks = await res.json();
 
+            tasks = tasks.sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate));
+
             tasks = tasks.filter(task => task.complete === statusFilter);
     
             setTasks(tasks);
