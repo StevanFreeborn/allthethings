@@ -35,12 +35,14 @@ const TaskRow = (props) => {
 
                 <div className='d-grid d-md-flex justify-content-md-center'>
 
+                    {!props.task.complete ?
                     <button
                         className='btn btn-outline-primary m-1'
                         onClick={() => props.completeTask(props.task.id)}
                     >
                         <Check />
                     </button>
+                    : null}
                     
                     <Link
                         className='btn btn-outline-dark m-1'
@@ -68,6 +70,7 @@ const TaskRow = (props) => {
 export default function TaskTable() {
 
     const [tasks, setTasks] = useState([]);
+    const [statusFilter, setStatusFilter] = useState(false);
 
     useEffect(() => {
 
@@ -82,7 +85,7 @@ export default function TaskTable() {
     
             let tasks = await res.json();
 
-            tasks = tasks.filter(task => task.complete !== true);
+            tasks = tasks.filter(task => task.complete === statusFilter);
     
             setTasks(tasks);
     
@@ -90,7 +93,13 @@ export default function TaskTable() {
 
         getAllTasks();
 
-    }, [tasks.length]);
+    }, [tasks.length, statusFilter]);
+
+    const showCompleted = (status) => {
+
+        return setStatusFilter(status);
+
+    }
 
     const deleteTask = async (id) => {
 
@@ -163,6 +172,33 @@ export default function TaskTable() {
                         >
                             <PlusLg />
                         </Link>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div className='row'>
+
+                <div className='col-12'>
+
+                    <div className="form-check form-switch">
+
+                        <input 
+                            className="form-control form-check-input" 
+                            type="checkbox" 
+                            role="switch" 
+                            id="statusFilter"
+                            onClick={(e) => showCompleted(e.target.checked)}
+                        />
+                        
+                        <label 
+                            className="form-check-label" 
+                            htmlFor="statusFilter"
+                        >
+                            Show Completed
+                        </label>
 
                     </div>
 

@@ -31,12 +31,14 @@ const TaskRow = (props) => {
 
                 <div className='d-grid d-md-flex justify-content-md-center'>
 
+                    {!props.task.complete ?
                     <button
                         className='btn btn-outline-primary m-1'
                         onClick={() => props.completeTask(props.task.id)}
                     >
                         <Check />
                     </button>
+                    : null } 
 
                     <Link
                         className='btn btn-outline-dark m-1'
@@ -70,6 +72,7 @@ export default function TaskTable() {
     const listName = location.state?.listName;
 
     const [tasks, setTasks] = useState([]);
+    const [statusFilter, setStatusFilter] = useState(false);
 
     useEffect(() => {
 
@@ -84,7 +87,7 @@ export default function TaskTable() {
     
             let tasks = await res.json();
 
-            tasks = tasks.filter(task => task.complete !== true);
+            tasks = tasks.filter(task => task.complete === statusFilter);
     
             setTasks(tasks);
     
@@ -92,7 +95,13 @@ export default function TaskTable() {
 
         getAllTasks();
 
-    }, [tasks.length, listId]);
+    }, [tasks.length, listId, statusFilter]);
+
+    const showCompleted = (status) => {
+
+        return setStatusFilter(status);
+
+    }
 
     const deleteTask = async (id) => {
 
@@ -162,7 +171,7 @@ export default function TaskTable() {
                         <Link
                             className='btn btn-outline-success col-12'
                             to={`/tasks/add`}
-                            state={{listId: listId, listName: listName }}
+                            state={{ listId: listId, listName: listName }}
                         >
                             <PlusLg />
                         </Link>
@@ -177,24 +186,51 @@ export default function TaskTable() {
 
                 <div className='col-12'>
 
-                    <div className='table-responsive'>
+                    <div className="form-check form-switch">
 
-                        <table className='table table-striped'>
+                        <input
+                            className="form-control form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="statusFilter"
+                            onClick={(e) => showCompleted(e.target.checked)}
+                        />
 
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Due Date</th>
-                                </tr>
-                            </thead>
+                        <label
+                            className="form-check-label"
+                            htmlFor="statusFilter"
+                        >
+                            Show Completed
+                        </label>
 
-                            <tbody>
-                                {taskList()}
-                            </tbody>
+                    </div>
 
-                        </table>
-                        
+                </div>
+
+                <div className='row'>
+
+                    <div className='col-12'>
+
+                        <div className='table-responsive'>
+
+                            <table className='table table-striped'>
+
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Due Date</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {taskList()}
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
                     </div>
 
                 </div>
