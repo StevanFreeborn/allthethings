@@ -21,7 +21,7 @@ const TaskRow = (props) => {
     dueDate = dueDate.split('-');
     dueDate = `${dueDate[1]}/${dueDate[2]}/${dueDate[0]}`
 
-    const rowClasses = new Date(dueDate) < new Date() && props.task.complete ?
+    const rowClasses = new Date(dueDate) < new Date() && !props.task.complete ?
     'align-middle table-danger' :
     'align-middle';
 
