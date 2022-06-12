@@ -27,3 +27,12 @@
     border-left: solid red 2px;
 
 }
+
+/*App Specific*/
+
+html, 
+body,
+#root,
+#root > div {
+    height: 100%;
+}

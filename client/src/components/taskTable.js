@@ -143,7 +143,7 @@ export default function TaskTable() {
 
     return (
 
-        <div className='container-sm'>
+        <div className='container-sm m-auto py-3'>
 
             <div className='row'>
 
@@ -173,23 +173,27 @@ export default function TaskTable() {
             <div className='row'>
 
                 <div className='col-12'>
+                
+                    <div className='table-responsive'>
 
-                    <table className='table table-striped'>
+                        <table className='table table-striped'>
 
-                        <thead>
-                            <tr>
-                                <th>List</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Due Date</th>
-                            </tr>
-                        </thead>
+                            <thead>
+                                <tr>
+                                    <th>List</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Due Date</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            {taskList()}
-                        </tbody>
+                            <tbody>
+                                {taskList()}
+                            </tbody>
 
-                    </table>
+                        </table>
+
+                    </div>
 
                 </div>
 

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './styles/app.css';
 
 import NavBar from './components/navbar';
+import Footer from './components/footer';
 
 import TaskTable from './components/taskTable';
 import AddTask from './components/addTask';
@@ -27,7 +28,7 @@ const App = () => {
 
   return (
 
-    <div>
+    <div className='d-flex flex-column min-vh-100'>
 
       {/* hide navbar until auth check is complete*/}
       {state.isLoggedIn !== 'authenticating' ?
@@ -63,13 +64,13 @@ const App = () => {
               <Route path='/tasks' element={<TaskTable />} />
               <Route path='/tasks/add' element={<AddTask />} />
               <Route path='/tasks/update/:id' element={<UpdateTask />} />
-              
+
               <Route path='/lists' element={<ListTable />} />
               <Route path='/lists/add' element={<AddList />} />
               <Route path='/lists/update/:id' element={<UpdateList />} />
-              <Route path='/lists/:id/tasks' element={<ListTaskTable/>} />
+              <Route path='/lists/:id/tasks' element={<ListTaskTable />} />
 
-              <Route path='/users/profile' element={<UserProfile/>}/>
+              <Route path='/users/profile' element={<UserProfile />} />
 
               {/* "Default" unprotected route */}
               <Route path='*' element={<Navigate replace to='/lists' />} />
@@ -78,6 +79,12 @@ const App = () => {
         }
 
       </Routes>
+
+      {/* hide navbar until auth check is complete*/}
+      {state.isLoggedIn !== 'authenticating' ?
+        <Footer />
+        : null
+      }
 
     </div>
 

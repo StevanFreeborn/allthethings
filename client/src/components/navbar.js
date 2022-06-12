@@ -22,7 +22,7 @@ export default function NavBar(props) {
     return (
 
         <div>
-            <nav className='navbar navbar-dark bg-dark mb-5'>
+            <nav className='navbar navbar-dark bg-dark mb-auto'>
 
                 <div className='navbar-brand mx-4'>
 

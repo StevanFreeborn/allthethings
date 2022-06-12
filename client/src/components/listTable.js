@@ -120,7 +120,7 @@ export default function ListTable() {
 
     return (
 
-        <div className='container-sm'>
+        <div className='container-sm m-auto py-3'>
 
             <div className='row'>
 
@@ -151,20 +151,24 @@ export default function ListTable() {
 
                 <div className='col-12'>
 
-                    <table className='table table-striped'>
+                    <div className='table-responsive'>
 
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
+                        <table className='table table-striped'>
 
-                        <tbody>
-                            {listList()}
-                        </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
 
-                    </table>
+                            <tbody>
+                                {listList()}
+                            </tbody>
+
+                        </table>
+                        
+                    </div>
 
                 </div>
 

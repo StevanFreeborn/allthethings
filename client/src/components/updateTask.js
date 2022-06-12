@@ -114,7 +114,7 @@ export default function UpdateTask() {
     return (
         <>
             {form != null && options.length > 0 ?
-                <div className='container-sm'>
+                <div className='container-sm m-auto py-3'>
 
                     <Card>
 

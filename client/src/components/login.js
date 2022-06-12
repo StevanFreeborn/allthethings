@@ -66,7 +66,7 @@ export default function Login(props) {
 
     return (
 
-        <div className='container-sm'>
+        <div className='container-sm m-auto py-3'>
 
             <Card>
 
