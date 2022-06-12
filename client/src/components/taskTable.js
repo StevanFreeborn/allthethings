@@ -16,9 +16,13 @@ const TaskRow = (props) => {
     dueDate = dueDate.split('-');
     dueDate = `${dueDate[1]}/${dueDate[2]}/${dueDate[0]}`
 
+    const rowClasses = new Date(dueDate) < new Date() && !props.task.complete ?
+    'align-middle table-danger' :
+    'align-middle';
+
     return (
 
-        <tr className='align-middle'>
+        <tr className={rowClasses}>
             <td>
                 <Link
                     className='link-dark'
@@ -214,7 +218,7 @@ export default function TaskTable() {
                 
                     <div className='table-responsive'>
 
-                        <table className='table table-striped'>
+                        <table className='table'>
 
                             <thead>
                                 <tr>

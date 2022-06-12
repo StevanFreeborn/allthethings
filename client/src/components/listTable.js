@@ -153,7 +153,7 @@ export default function ListTable() {
 
                     <div className='table-responsive'>
 
-                        <table className='table table-striped'>
+                        <table className='table'>
 
                             <thead>
                                 <tr>
