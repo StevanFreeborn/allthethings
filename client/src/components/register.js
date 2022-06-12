@@ -146,18 +146,20 @@ export default function Register() {
 
                             <div className="form-group my-4">
 
+                            <div className='d-flex flex-row flex-wrap'>
                                 <input
                                     type="submit"
                                     value="Register"
-                                    className="btn btn-outline-success"
+                                    className="btn btn-outline-success me-3"
                                 />
 
                                 <Link
-                                    className='link-dark m-3'
+                                    className='link-dark mt-2'
                                     to={`/users/login`}
                                 >
                                     Already have an account? Login here.
                                 </Link>
+                                </div>
 
                             </div>
 

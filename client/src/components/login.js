@@ -109,20 +109,22 @@ export default function Login(props) {
                                 />
                             </div>
 
-                            <div className="form-group my-4">
+                            <div className="form-group mt-4 mb-2">
 
-                                <input
-                                    type="submit"
-                                    value="Login"
-                                    className="btn btn-outline-success"
-                                />
+                                <div className='d-flex flex-row flex-wrap'>
+                                    <input
+                                        type="submit"
+                                        value="Login"
+                                        className="btn btn-outline-success me-3"
+                                    />
 
-                                <Link
-                                    className='link-dark m-3'
-                                    to={`/users/register`}
-                                >
-                                    Don't have an account? Register here.
-                                </Link>
+                                    <Link
+                                        className='link-dark mt-2'
+                                        to={`/users/register`}
+                                    >
+                                        Don't have an account? Register here.
+                                    </Link>
+                                </div>
 
                             </div>
 
