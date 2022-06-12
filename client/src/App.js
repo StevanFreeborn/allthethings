@@ -6,8 +6,8 @@ import './styles/app.css';
 import NavBar from './components/navbar';
 
 import TaskTable from './components/taskTable';
-import AddTask from './components/addTask';
-import UpdateTask from './components/updateTask';
+import AddTask from './pages/addTask';
+import UpdateTask from './pages/updateTask';
 
 import ListTable from './components/listTable';
 import AddList from './components/addList';
