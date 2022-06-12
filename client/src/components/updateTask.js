@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
 
-import Card from '../components/card';
-import TaskForm from '../components/taskForm';
+import Card from './card';
+import TaskForm from './taskForm';
 
 import ListService from '../services/listsService';
 import TaskService from '../services/tasksService';
