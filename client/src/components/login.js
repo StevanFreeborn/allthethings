@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
+import Card from './card';
+
 import UserService from '../services/usersService';
 const userService = new UserService();
 
@@ -66,7 +68,7 @@ export default function Login(props) {
 
         <div className='container-sm'>
 
-            <div className='card p-5'>
+            <Card>
 
                 <div className='row'>
 
@@ -136,7 +138,7 @@ export default function Login(props) {
 
                 </div>
 
-            </div>
+            </Card>
 
         </div>
 

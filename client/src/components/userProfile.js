@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
+import Card from './card';
+
 import UserService from '../services/usersService';
 const userService = new UserService();
 
@@ -89,7 +91,7 @@ export default function UserProfile() {
             {profile != null ?
                 <div className='container-sm'>
 
-                    <div class='card p-5'>
+                    <Card>
 
                         <div className='row'>
 
@@ -174,7 +176,7 @@ export default function UserProfile() {
 
                         </div>
 
-                    </div>
+                    </Card>
 
                 </div>
             : null}
