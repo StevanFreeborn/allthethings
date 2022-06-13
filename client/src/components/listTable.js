@@ -120,7 +120,7 @@ export default function ListTable() {
 
     return (
 
-        <div className='container-sm m-auto py-3'>
+        <div className='container-sm py-3'>
 
             <div className='row'>
 
