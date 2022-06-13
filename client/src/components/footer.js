@@ -16,6 +16,7 @@ export default function Footer() {
                             className='text-light'
                             href='https://github.com/StevanFreeborn/allthethings'
                             target='_blank'
+                            rel="noreferrer"
                         >
                             <Github size={25}/>
                         </a>
