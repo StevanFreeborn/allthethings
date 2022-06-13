@@ -68,7 +68,7 @@ export default function Register() {
 
     return (
 
-        <div className='container-sm m-auto py-3'>
+        <div className='container-sm mt-auto py-3'>
 
             <Card>
 
