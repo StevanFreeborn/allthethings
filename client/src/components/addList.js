@@ -64,7 +64,7 @@ export default function AddList() {
 
     return (
         
-        <div className='container-sm m-auto py-3'>
+        <div className='container-sm mt-auto py-3'>
 
             <Card>
 

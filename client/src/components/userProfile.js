@@ -89,7 +89,7 @@ export default function UserProfile() {
 
         <>
             {profile != null ?
-                <div className='container-sm m-auto py-3'>
+                <div className='container-sm mt-auto py-3'>
 
                     <Card>
 

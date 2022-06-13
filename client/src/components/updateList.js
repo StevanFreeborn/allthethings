@@ -91,7 +91,7 @@ export default function UpdateList() {
 
         <>
             {form != null ?
-                <div className='container-sm m-auto py-3'>
+                <div className='container-sm mt-auto py-3'>
 
                     <Card>
 
