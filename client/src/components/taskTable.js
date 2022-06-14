@@ -74,6 +74,7 @@ export default function TaskTable() {
 
     const [tasks, setTasks] = useState([]);
     const [statusFilter, setStatusFilter] = useState(false);
+    const [textFilter, setTextFilter] = useState('.');
 
     useEffect(() => {
 
@@ -100,7 +101,18 @@ export default function TaskTable() {
 
             tasks = tasks.sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate));
 
-            tasks = tasks.filter(task => task.complete === statusFilter);
+            tasks = tasks.filter(task => {
+
+                const hasStatusFilter = task.complete === statusFilter;
+
+                const regex = new RegExp(textFilter, 'i');
+
+                const hasNameFilter = regex.test(task.name);
+                const hasDescriptionFilter = regex.test(task.description);
+                
+                return hasStatusFilter && (hasNameFilter || hasDescriptionFilter);
+
+            });
     
             setTasks(tasks);
     
@@ -108,13 +120,7 @@ export default function TaskTable() {
 
         getAllTasks();
 
-    }, [tasks.length, statusFilter, listId]);
-
-    const showCompleted = (status) => {
-
-        return setStatusFilter(status);
-
-    }
+    }, [tasks.length, statusFilter, listId, textFilter]);
 
     const deleteTask = async (id) => {
 
@@ -170,11 +176,11 @@ export default function TaskTable() {
 
         <div className='container-sm py-3'>
 
-            <div className='row'>
+            <div className='row align-items-center'>
 
                 <div className='col-10'>
 
-                    <h3>{`${listName ? listName : ''} Tasks`}</h3>
+                    <h3 className='m-0'>{`${listName ? listName : ''} Tasks`}</h3>
 
                 </div>
 
@@ -196,19 +202,20 @@ export default function TaskTable() {
 
             </div>
 
-            <div className='row align-items-center mt-2'>
+            <div className='row align-items-center mt-2 gy-2'>
 
-                <div className='col-3 d-flex justify-content-start'>
+                <div className='col-sm-4 d-flex justify-content-start'>
 
                     <input
                         type='text'
                         className='form-control form-control-sm'
                         placeholder='Filter By Name/Description'
+                        onChange={(e) => setTextFilter(e.target.value)}
                     />
 
                 </div>
 
-                <div className='col-9 d-flex justify-content-start'>
+                <div className='col-sm-8 d-flex justify-content-start'>
 
                     <div className="form-check form-switch">
 
@@ -217,7 +224,7 @@ export default function TaskTable() {
                             type="checkbox" 
                             role="switch" 
                             id="statusFilter"
-                            onClick={(e) => showCompleted(e.target.checked)}
+                            onClick={(e) => setStatusFilter(e.target.checked)}
                         />
                         
                         <label 
