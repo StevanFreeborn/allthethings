@@ -37,11 +37,17 @@ export default function NavBar(props) {
                     { 
                         !props.isLoggedIn ?
                         <>
-                            <NavLink className='nav-link link-light' to='/users/login'>
+                            <NavLink 
+                                className='nav-link link-light' 
+                                to='/users/login'
+                            >
                                 Login
                             </NavLink>
                             
-                            <NavLink className='nav-link link-light' to='/users/register'>
+                            <NavLink 
+                                className='nav-link link-light' 
+                                to='/users/register'
+                            >
                                 Register
                             </NavLink>
                         </>
@@ -53,15 +59,24 @@ export default function NavBar(props) {
                         props.isLoggedIn && props.isLoggedIn !== 'authenticating' ?
                         <>
 
-                        <NavLink className='nav-link link-light' to='/lists'>
+                        <NavLink 
+                            className='nav-link link-light' 
+                            to='/lists'
+                        >
                             Lists
                         </NavLink>
 
-                        <NavLink className='nav-link link-light' to='/tasks'>
+                        <NavLink 
+                            className='nav-link link-light' 
+                            to='/tasks'
+                        >
                             Tasks
                         </NavLink>
 
-                        <NavLink className='nav-link link-light' to='/users/profile'>
+                        <NavLink 
+                            className='nav-link link-light' 
+                            to='/users/profile'
+                        >
                             Profile
                         </NavLink>
 
