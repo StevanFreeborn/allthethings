@@ -196,9 +196,19 @@ export default function TaskTable() {
 
             </div>
 
-            <div className='row'>
+            <div className='row align-items-center mt-2'>
 
-                <div className='col-12'>
+                <div className='col-3 d-flex justify-content-start'>
+
+                    <input
+                        type='text'
+                        className='form-control form-control-sm'
+                        placeholder='Filter By Name/Description'
+                    />
+
+                </div>
+
+                <div className='col-9 d-flex justify-content-start'>
 
                     <div className="form-check form-switch">
 
