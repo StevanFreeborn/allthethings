@@ -25,14 +25,21 @@ export default function NavBar(props) {
     return (
 
         <Navbar bg="dark" expand="sm" variant="dark">
+
             <Container fluid>
+
                 <Navbar.Brand>
+
                     <div style={{ display: "flex", alignItems: 'center' }}>
                         <CheckSquare /> <span className='ms-2'>All The Things</span>
                     </div>
+
                 </Navbar.Brand>
+
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
                 <Navbar.Collapse id="basic-navbar-nav">
+
                     <Nav className="ms-auto">
                         
                         {
@@ -90,8 +97,11 @@ export default function NavBar(props) {
                         }
 
                     </Nav>
+
                 </Navbar.Collapse>
+
             </Container>
+            
         </Navbar>
 
     );
