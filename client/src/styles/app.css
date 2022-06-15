@@ -9,7 +9,9 @@
 .btn-outline-secondary:focus,
 .btn-outline-secondary:active:focus,
 .btn-outline-danger:focus,
-.btn-outline-danger:active:focus {
+.btn-outline-danger:active:focus,
+.navbar-toggler:focus,
+.navbar-toggerl:active:focus {
 
     box-shadow: none;
 

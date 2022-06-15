@@ -171,28 +171,28 @@ export default function ListTable() {
 
                 </div>
 
-                <div className='row'>
+            </div>
 
-                    <div className='col-12'>
+            <div className='row align-items-center'>
 
-                        <div className='table-responsive'>
+                <div className='col-12'>
 
-                            <table className='table'>
+                    <div className='table-responsive'>
 
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                    </tr>
-                                </thead>
+                        <table className='table'>
 
-                                <tbody>
-                                    {listList()}
-                                </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
 
-                            </table>
+                            <tbody>
+                                {listList()}
+                            </tbody>
 
-                        </div>
+                        </table>
 
                     </div>
 
