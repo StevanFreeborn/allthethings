@@ -63,6 +63,7 @@ const ListRow = (props) => {
 export default function ListTable() {
 
     const [lists, setLists] = useState([]);
+    const [textFilter, setTextFilter] = useState('.');
 
     useEffect(() => {
 
@@ -75,7 +76,17 @@ export default function ListTable() {
                 return window.alert(message);
             }
     
-            const lists = await res.json();
+            let lists = await res.json();
+
+            lists = lists.filter(list => {
+                
+                const regex = new RegExp(textFilter, 'i');
+
+                const hasNameFilter = regex.test(list.name);
+                const hasDescriptionFilter = regex.test(list.description);
+                
+                return hasNameFilter || hasDescriptionFilter;
+            });
     
             setLists(lists);
     
@@ -83,7 +94,7 @@ export default function ListTable() {
 
         getAllLists();
 
-    }, [lists.length]);
+    }, [lists.length, textFilter]);
 
     const deleteList = async (id) => {
 
@@ -122,11 +133,11 @@ export default function ListTable() {
 
         <div className='container-sm py-3'>
 
-            <div className='row'>
+            <div className='row align-items-center'>
 
                 <div className='col-10'>
 
-                    <h3>Lists</h3>
+                    <h3 className='m-0'>Lists</h3>
 
                 </div>
 
@@ -147,27 +158,42 @@ export default function ListTable() {
 
             </div>
 
-            <div className='row'>
+            <div className='row align-items-center mt-2 gy-2'>
 
-                <div className='col-12'>
+                <div className='col-sm-4 d-flex justify-content-start'>
 
-                    <div className='table-responsive'>
+                    <input
+                        type='text'
+                        className='form-control form-control-sm'
+                        placeholder='Filter By Name/Description'
+                        onChange={(e) => setTextFilter(e.target.value)}
+                    />
 
-                        <table className='table'>
+                </div>
 
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
+                <div className='row'>
 
-                            <tbody>
-                                {listList()}
-                            </tbody>
+                    <div className='col-12'>
 
-                        </table>
-                        
+                        <div className='table-responsive'>
+
+                            <table className='table'>
+
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {listList()}
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
                     </div>
 
                 </div>
