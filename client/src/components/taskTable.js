@@ -7,8 +7,8 @@ import { PlusLg } from 'react-bootstrap-icons';
 import { Check } from 'react-bootstrap-icons';
 import { Pencil } from 'react-bootstrap-icons';
 import { Trash } from 'react-bootstrap-icons';
-import { SortAlphaUp } from 'react-bootstrap-icons';
-import { SortAlphaDown } from 'react-bootstrap-icons';
+import { ArrowUp } from 'react-bootstrap-icons';
+import { ArrowDown } from 'react-bootstrap-icons';
 
 import ListService from '../services/listsService';
 import TaskService from '../services/tasksService';
@@ -166,7 +166,7 @@ export default function TaskTable() {
     }
 
     const toggleSort = () => {
-        
+
         const order = sortOrder === 'ascending' ?
         'descending' :
         'ascending';
@@ -268,23 +268,27 @@ export default function TaskTable() {
                 
                     <div className='table-responsive'>
 
-                        <table className='table'>
+                        <table className='table table'>
 
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>
+                                    <th colSpan={2}>
                                         <div
                                             className='sort-button'
                                             onClick={() => toggleSort()}
                                         >
-                                            <span className='me-1'>Due Date</span>
-                                            {
-                                                sortOrder === 'ascending' ?
-                                                    <SortAlphaUp /> :
-                                                    <SortAlphaDown />
-                                            }
+                                            <span className='me-1'>
+                                                Due Date
+                                            </span>
+                                            <span>
+                                                {
+                                                    sortOrder === 'ascending' ?
+                                                        <ArrowUp /> :
+                                                        <ArrowDown />
+                                                }
+                                            </span>
                                         </div>
                                     </th>
                                 </tr>
