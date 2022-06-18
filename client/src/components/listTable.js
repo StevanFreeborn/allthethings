@@ -23,8 +23,8 @@ const ListRow = (props) => {
 
                     <Link
                         className='btn btn-outline-primary m-1'
-                        to={`/lists/${props.list._id}/tasks`}
-                        state={{ listName: props.list.name }}
+                        to={`/tasks`}
+                        state={{ listName: props.list.name, listId: props.list._id }}
                     >
                         <ViewList />
                     </Link>

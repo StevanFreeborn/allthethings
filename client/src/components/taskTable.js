@@ -1,13 +1,16 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { PlusLg } from 'react-bootstrap-icons';
 import { Check } from 'react-bootstrap-icons';
 import { Pencil } from 'react-bootstrap-icons';
 import { Trash } from 'react-bootstrap-icons';
 
+import ListService from '../services/listsService';
 import TaskService from '../services/tasksService';
+const listService = new ListService();
 const taskService = new TaskService();
 
 const TaskRow = (props) => {
@@ -23,15 +26,6 @@ const TaskRow = (props) => {
     return (
 
         <tr className={rowClasses}>
-            <td>
-                <Link
-                    className='link-dark'
-                    to={`/lists/${props.task.listId}/tasks`}
-                    state={{ listName: props.task.listName }}
-                >
-                    {props.task.listName}
-                </Link>
-            </td>
             <td>{props.task.name}</td>
             <td>{props.task.description}</td>
             <td>{dueDate}</td>
@@ -73,6 +67,11 @@ const TaskRow = (props) => {
 
 export default function TaskTable() {
 
+    const location = useLocation();
+
+    const listId = location.state?.listId;
+    const listName = location.state?.listName;
+
     const [tasks, setTasks] = useState([]);
     const [statusFilter, setStatusFilter] = useState(false);
 
@@ -80,7 +79,17 @@ export default function TaskTable() {
 
         const getAllTasks = async () => {
 
-            const res = await taskService.getAllTasks();
+            let res;
+
+            if (listId) {
+
+                res = res = await listService.getListTasks(listId);
+                
+            } else {
+
+                res = await taskService.getAllTasks();
+                
+            }
     
             if (!res.ok) {
                 const message = `An error occured: ${res.statusText}`;
@@ -99,7 +108,7 @@ export default function TaskTable() {
 
         getAllTasks();
 
-    }, [tasks.length, statusFilter]);
+    }, [tasks.length, statusFilter, listId]);
 
     const showCompleted = (status) => {
 
@@ -144,6 +153,7 @@ export default function TaskTable() {
             return (
 
                 <TaskRow
+                    listId={listId}
                     task={task}
                     deleteTask={ () => deleteTask(task._id) }
                     completeTask={ () => completeTask(task._id) }
@@ -164,7 +174,7 @@ export default function TaskTable() {
 
                 <div className='col-10'>
 
-                    <h3>Tasks</h3>
+                    <h3>{`${listName ? listName : ''} Tasks`}</h3>
 
                 </div>
 
@@ -175,6 +185,7 @@ export default function TaskTable() {
                         <Link
                             className='btn btn-outline-success col-12'
                             to={`/tasks/add`}
+                            state={{ listId: listId, listName: listName }}
                         >
                             <PlusLg />
                         </Link>
@@ -222,7 +233,6 @@ export default function TaskTable() {
 
                             <thead>
                                 <tr>
-                                    <th>List</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Due Date</th>
