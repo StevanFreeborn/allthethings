@@ -7,6 +7,8 @@ import { PlusLg } from 'react-bootstrap-icons';
 import { Check } from 'react-bootstrap-icons';
 import { Pencil } from 'react-bootstrap-icons';
 import { Trash } from 'react-bootstrap-icons';
+import { SortAlphaUp } from 'react-bootstrap-icons';
+import { SortAlphaDown } from 'react-bootstrap-icons';
 
 import ListService from '../services/listsService';
 import TaskService from '../services/tasksService';
@@ -73,6 +75,7 @@ export default function TaskTable() {
     const listName = location.state?.listName;
 
     const [tasks, setTasks] = useState([]);
+    const [sortOrder, setSortOrder] = useState('ascending');
     const [statusFilter, setStatusFilter] = useState(false);
     const [textFilter, setTextFilter] = useState('.');
 
@@ -99,7 +102,17 @@ export default function TaskTable() {
     
             let tasks = await res.json();
 
-            tasks = tasks.sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate));
+            tasks = tasks.sort((a,b) => {
+
+                if (sortOrder === 'ascending') {
+                    
+                    return new Date(a.dueDate) - new Date(b.dueDate);
+
+                } 
+
+                return new Date(b.dueDate) - new Date(a.dueDate);
+
+            });
 
             tasks = tasks.filter(task => {
 
@@ -120,7 +133,7 @@ export default function TaskTable() {
 
         getAllTasks();
 
-    }, [tasks.length, statusFilter, listId, textFilter]);
+    }, [tasks.length, statusFilter, listId, textFilter, sortOrder]);
 
     const deleteTask = async (id) => {
 
@@ -150,6 +163,15 @@ export default function TaskTable() {
         
         setTasks(newTasks);
 
+    }
+
+    const toggleSort = () => {
+        
+        const order = sortOrder === 'ascending' ?
+        'descending' :
+        'ascending';
+
+        return setSortOrder(order);
     }
 
     const taskList = () => {
@@ -252,7 +274,19 @@ export default function TaskTable() {
                                 <tr>
                                     <th>Name</th>
                                     <th>Description</th>
-                                    <th>Due Date</th>
+                                    <th>
+                                        <div
+                                            className='sort-button'
+                                            onClick={() => toggleSort()}
+                                        >
+                                            <span className='me-1'>Due Date</span>
+                                            {
+                                                sortOrder === 'ascending' ?
+                                                    <SortAlphaUp /> :
+                                                    <SortAlphaDown />
+                                            }
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
 
