@@ -240,7 +240,7 @@ export default function TaskTable() {
 
             </div>
 
-            <div className='row'>
+            <div className='row align-items-center'>
 
                 <div className='col-12'>
                 
